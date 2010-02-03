@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<tags extends="generic">
+	<tag label="&amp;modules.solrsearch.bo.tag.Solrsearch-result-page;" icon="list-block">contextual_website_website_modules_solrsearch_page-results</tag>
+</tags>

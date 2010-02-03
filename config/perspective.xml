@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<perspective>
+	<models>
+		<model name="modules_solrsearch/synonymslist">
+			<children>
+				<child model="modules_solrsearch/synonyms" />
+			</children>
+			<contextactions>
+				<contextaction name="edit" />
+				<contextaction name="importSynonymsList" />
+				<contextaction name="exportSynonymsList" />
+			</contextactions>
+		</model>
+		<model name="modules_solrsearch/synonyms">
+			<contextactions>
+				<contextaction name="edit" />
+				<contextaction name="activate" />
+				<contextaction name="deactivated" />
+				<contextaction name="reactivate" />
+			</contextactions>
+		</model>
+		<model name="modules_generic/rootfolder">
+			<children>
+				<child model="modules_solrsearch/synonymslist" />
+			</children>
+			<contextactions>
+				<contextaction name="edit" />
+			</contextactions>
+		</model>
+		<model name="modules_generic/systemfolder">
+			<contextactions>
+				<contextaction name="edit" />
+			</contextactions>
+		</model>
+	</models>
+	<toolbar>
+		<toolbarbutton name="edit" />
+		<toolbarbutton name="activate" />
+		<toolbarbutton name="deactivated" />
+		<toolbarbutton name="reactivate" />
+	</toolbar>
+	<actions>
+		<action name="edit" single="true" permission="Load" icon="edit" label="&amp;modules.uixul.bo.actions.Edit;" />
+		<action name="importSynonymsList" icon="upload" label="&amp;modules.solrsearch.bo.actions.ImportSynonymsList;" />
+		<action name="exportSynonymsList" icon="download" label="&amp;modules.solrsearch.bo.actions.ExportSynonymsList;" />
+		<action name="activate" permission="Activate" icon="activate" label="&amp;modules.uixul.bo.actions.Activate;" />
+		<action name="reactivate" permission="ReActivate" icon="reactivate" label="&amp;modules.uixul.bo.actions.ReActivate;" />
+		<action name="deactivated" permission="Deactivated" icon="deactivated" label="&amp;modules.uixul.bo.actions.Deactivate;" />
+	</actions>
+</perspective>

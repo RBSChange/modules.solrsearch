@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<localization>
+  <entity id="searchform">
+    <locale lang="fr">formulaire de recherche</locale>
+    <locale lang="en">search form</locale>
+    <locale lang="de">Suchformular</locale>
+  </entity>
+  <entity id="searchresults">
+    <locale lang="fr">résultats de recherche</locale>
+    <locale lang="en">search results</locale>
+    <locale lang="de">Suchergebnisse</locale>
+  </entity>
+  <entity id="advancedsearch-block-error">
+    <locale lang="fr">votre bloc de recherche avancée est mal configuré!</locale>
+    <locale lang="en">your advanced search block is misconfigured!</locale>
+    <locale lang="de">Ihr Block für die erweiterte suche ist schlecht konfiguriert!</locale>
+  </entity>
+  <entity id="advancedsearch-emptyquery-error">
+    <locale lang="fr">votre recherche ne contient aucun terme valide.</locale>
+    <locale lang="en">your search contains no valid terms.</locale>
+    <locale lang="de">Ihre Suche beinhaltet keinen gültigen Begriff.</locale>
+  </entity>
+  <entity id="advancedsearch-emptyresults-error">
+    <locale lang="fr">votre recherche n'a retourné aucun résultat.</locale>
+    <locale lang="en">your search returned no hits.</locale>
+    <locale lang="de">Ihre Suche hat kein Ergebnis ergeben.</locale>
+  </entity>
+</localization>

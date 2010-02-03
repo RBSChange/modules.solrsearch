@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<localization>
+  <entity id="document-name">
+    <locale lang="fr">Synonymes</locale>
+    <locale lang="de">Synonyme</locale>
+  </entity>
+  <entity id="edition-form-title">
+    <locale lang="fr">Synonymes</locale>
+    <locale lang="de">Synonyme</locale>
+  </entity>
+  <entity id="label">
+    <locale lang="fr">libellé</locale>
+    <locale lang="de">Name</locale>
+  </entity>
+  <entity id="label-help">
+    <locale lang="fr">libellé</locale>
+    <locale lang="de">Name</locale>
+  </entity>
+  <entity id="value">
+    <locale lang="fr">synonymes</locale>
+    <locale lang="de">Synonyme</locale>
+  </entity>
+  <entity id="value-help">
+    <locale lang="fr">la valeur du champ synonyme (syntaxe change)</locale>
+    <locale lang="de">Der Wert des Feldes Synonym (Change Syntax)</locale>
+  </entity>
+</localization>

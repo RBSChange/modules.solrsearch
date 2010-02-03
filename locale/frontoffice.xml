@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<localization>
+  <entity id="search-button-title">
+    <locale lang="fr">rechercher</locale>
+    <locale lang="en">search</locale>
+    <locale lang="de">suchen</locale>
+  </entity>
+  <entity id="search-button-ok">
+    <locale lang="fr">ok</locale>
+    <locale lang="en">ok</locale>
+  </entity>
+  <entity id="search-results-empty">
+    <locale lang="fr">aucun document ne contient les termes de recherche</locale>
+    <locale lang="en">no document matched the search terms</locale>
+    <locale lang="de">kein Dokument beinhaltet die Suchbegriffe</locale>
+  </entity>
+  <entity id="search-results-details">
+    <locale lang="fr">voir les détails...</locale>
+    <locale lang="en">see details...</locale>
+    <locale lang="de">Details anzeigen...</locale>
+  </entity>
+  <entity id="search-results-details-media">
+    <locale lang="fr">afficher le média...</locale>
+    <locale lang="en">display media...</locale>
+    <locale lang="de">das Medium anzeigen...</locale>
+  </entity>
+  <entity id="search-results-resultpage">
+    <locale lang="fr">page de résultats</locale>
+    <locale lang="en">results page</locale>
+    <locale lang="de">Ergebnisseite</locale>
+  </entity>
+  <entity id="search-results-previous">
+    <locale lang="fr">précédent</locale>
+    <locale lang="en">previous</locale>
+    <locale lang="de">vorheriges</locale>
+  </entity>
+  <entity id="search-results-next">
+    <locale lang="fr">suivant</locale>
+    <locale lang="en">next</locale>
+    <locale lang="de">nächstes</locale>
+  </entity>
+  <entity id="search-error-emptyquery">
+    <locale lang="fr">votre recherche ne contient aucun terme valide.</locale>
+    <locale lang="en">your query contains no valid search terms.</locale>
+    <locale lang="de">Ihre Suche beinhaltet keinen gültigen Begriff.</locale>
+  </entity>
+  <entity id="search-error-wildcardstart">
+    <locale lang="fr">aucun des termes de votre recherche ne peut commencer par un caractère joker (* et ?). Veuillez reformuler votre recherche.</locale>
+    <locale lang="en">Query terms are not allowed to start with a wildcard character (* and ?). Please reformulate your query.</locale>
+    <locale lang="de">keiner Ihrer Suchbegriffe darf mit einem Jokerzeichen (* und ?) beginnen. Bitte formulieren Sie Ihre Suche neu.</locale>
+  </entity>
+  <entity id="search-results-header">
+    <locale lang="fr">résultat(s) : {start}-{stop} de {total}</locale>
+    <locale lang="en">result(s) : {start}-{stop} of {total}</locale>
+    <locale lang="de">Ergebnis(se): {start}-{stop} von {total}</locale>
+  </entity>
+  <entity id="search-suggestions">
+    <locale lang="fr">autre suggestion</locale>
+    <locale lang="en">other suggestion</locale>
+    <locale lang="de">anderer Vorschlag</locale>
+  </entity>
+  <entity id="sort-by">
+    <locale lang="fr">trier par</locale>
+    <locale lang="en">sort by</locale>
+    <locale lang="de">ordnen nach</locale>
+  </entity>
+  <entity id="sort-by-date">
+    <locale lang="fr">date</locale>
+    <locale lang="en">date</locale>
+    <locale lang="de">Datum</locale>
+  </entity>
+  <entity id="sort-by-score">
+    <locale lang="fr">pertinence</locale>
+    <locale lang="en">relevancy</locale>
+    <locale lang="de">Relevanz</locale>
+  </entity>
+  <entity id="description">
+    <locale lang="fr">description</locale>
+    <locale lang="en">description</locale>
+  </entity>
+  <entity id="end-description">
+    <locale lang="fr"/>
+    <locale lang="en"/>
+    <locale lang="de"/>
+  </entity>
+  <entity id="solrsearch-results-0">
+    <locale lang="fr">pertinence 0 sur 5</locale>
+    <locale lang="en">relevancy 0 out of 5</locale>
+    <locale lang="de">Relevanz 0 von 5</locale>
+  </entity>
+  <entity id="solrsearch-results-1">
+    <locale lang="fr">pertinence 1 sur 5</locale>
+    <locale lang="en">relevancy 1 out of 5</locale>
+    <locale lang="de">Relevanz 1 von 5</locale>
+  </entity>
+  <entity id="solrsearch-results-2">
+    <locale lang="fr">pertinence 2 sur 5</locale>
+    <locale lang="en">relevancy 2 out of 5</locale>
+    <locale lang="de">Relevanz 2 von 5</locale>
+  </entity>
+  <entity id="solrsearch-results-3">
+    <locale lang="fr">pertinence 3 sur 5</locale>
+    <locale lang="en">relevancy 3 out of 5</locale>
+    <locale lang="de">Relevanz 3 von 5</locale>
+  </entity>
+  <entity id="solrsearch-results-4">
+    <locale lang="fr">pertinence 4 sur 5</locale>
+    <locale lang="en">relevancy 4 out of 5</locale>
+    <locale lang="de">Relevanz 4 von 5</locale>
+  </entity>
+  <entity id="solrsearch-results-5">
+    <locale lang="fr">pertinence 5 sur 5</locale>
+    <locale lang="en">relevancy 5 out of 5</locale>
+    <locale lang="de">Relevanz 5 von 5</locale>
+  </entity>
+  <entity id="search-input">
+    <locale lang="fr">votre recherche</locale>
+    <locale lang="en">search</locale>
+    <locale lang="de">Ihre Suche</locale>
+  </entity>
+</localization>

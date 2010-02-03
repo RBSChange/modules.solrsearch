@@ -1,0 +1,30 @@
+.modules-solrsearch-searchform form.cmxform label{
+	color: #000/*@var searchlabelfgcolor*/;
+	width: 57%;
+}
+ul.solrsearch-results-header{
+	list-style: none;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+ul.solrsearch-results-header li.sorting ol{
+	list-style: none;
+	margin-left: 20px;
+	display: inline;
+}
+ul.solrsearch-results-header li.sorting ol li{
+	display: inline;
+}
+ol.solrsearch-results-list{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+ol.solrsearch-results-list li{
+	margin-bottom: 10px;
+}
+ol.solrsearch-results-list li ul li{
+	border: none;
+	margin: 0;
+}
+
+@import url(/modules/solrsearch/style/frontoffice.!xul.all.css);

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<script>
+	<binding
+		fileName="modules/list/persistentdocument/import/list_binding.xml" />
+	<binding
+		fileName="modules/generic/persistentdocument/import/generic_binding.xml" />
+	
+	<systemfolder module="list" relatedmodule="solrsearch">
+		<staticlist listid="modules_solrsearch/sortoptions"
+			label="&amp;modules.solrsearch.bo.general.Sort-options-list-label;" description="&amp;modules.solrsearch.bo.general.Sort-options-list-desc;">
+				<staticitem label="&amp;modules.solrsearch.frontoffice.Sort-by-score;" value="date"/>
+				<staticitem label="&amp;modules.solrsearch.frontoffice.Sort-by-date;" value="score"/>
+		</staticlist>
+		
+		<staticlist listid="modules_solrsearch/itemperpage"
+			label="&amp;modules.solrsearch.bo.general.Item-per-page-list-label;" description="&amp;modules.solrsearch.bo.general.Item-per-page-list-desc;">
+				<staticitem label="5" value="5"/>
+				<staticitem label="10" value="10"/>
+				<staticitem label="15" value="15"/>
+				<staticitem label="20" value="20"/>
+				<staticitem label="25" value="25"/>
+		</staticlist>
+		
+	</systemfolder>
+</script>

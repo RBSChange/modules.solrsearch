@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<localization>
+  <entity id="importSynonymsList">
+    <locale lang="fr">importer la liste de synonymes</locale>
+    <locale lang="fr">import the synonyms list</locale>
+    <locale lang="de">Synonymenliste importieren</locale>
+  </entity>
+  <entity id="exportSynonymsList">
+    <locale lang="fr">Exporter la liste de synonymes</locale>
+    <locale lang="fr">Export the synonyms list</locale>
+    <locale lang="de">Synonymenliste exportieren</locale>
+  </entity>
+</localization>

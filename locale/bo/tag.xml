@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<localization>
+  <entity id="solrsearch-result-page">
+    <locale lang="fr">page des résultats de recherche</locale>
+    <locale lang="en">search results page</locale>
+    <locale lang="de">Suchergebnisseite</locale>
+  </entity>
+</localization>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<actions extends="generic">
+	<action name="importSynonymsList">
+		<parameter name="listWidget" />
+		<body><![CDATA[
+		    var docs = listWidget.getSelectedComponents();
+
+			if (docs.document.length() != 1)
+			{
+			    alert("&amp;modules.media.bo.actions.UploadMediaMessage;");
+			    return;
+			}
+
+			var documentId   = docs.document[0].component.(@name=="id").toString();
+			var documentLang = docs.document[0].component.(@name=="lang").toString();
+
+			wToolkit.dialog('solrsearch', 'ImportSynonymsList', {cmpref: documentId, lang: documentLang}, {width: 500, height: 175});
+		]]></body>
+	</action>
+
+	<action name="exportSynonymsList">
+		<parameter name="listWidget" />
+		<body><![CDATA[
+		    var docs = listWidget.getSelectedComponents();
+
+			if (docs.document.length() != 1)
+			{
+			    alert("&amp;modules.media.bo.actions.UploadMediaMessage;");
+			    return;
+			}
+
+			var documentId   = docs.document[0].component.(@name=="id").toString();
+			var documentLang = docs.document[0].component.(@name=="lang").toString();
+
+			wToolkit.dialog('solrsearch', 'ExportSynonymsList', {cmpref: documentId, lang: documentLang}, {width: 500, height: 175});
+		]]></body>
+	</action>
+</actions>

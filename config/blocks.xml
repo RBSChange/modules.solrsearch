@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<blocks>
+	<block type="modules_solrsearch_searchform" display="" icon="form" label="&amp;modules.solrsearch.bo.blocks.Searchform;" />
+	<block type="modules_solrsearch_searchresults" display="" icon="list-block" label="&amp;modules.solrsearch.bo.blocks.Searchresults;">
+		<parameters>
+			<parameter name="displaysuggestions" type="Boolean" default-value="true" />
+		</parameters>
+	</block>
+</blocks>
