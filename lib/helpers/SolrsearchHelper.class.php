@@ -61,7 +61,7 @@ class solrsearch_SolrsearchHelper
 		$res = array();
 		foreach ($terms as $term)
 		{
-			$suggestion = indexer_IndexService::getInstance()->getSuggestionForWord($term, $lang);
+			$suggestion = indexer_IndexService::getInstance()->getSuggestionForWord(mb_strtolower($term), $lang);
 			if (!is_null($suggestion))
 			{
 				$res[] = $suggestion;
