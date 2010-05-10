@@ -17,14 +17,14 @@ class solrsearch_BlockFormAction extends website_BlockAction
 		if ($resultPage === null)
 		{
 			return website_BlockView::NONE;
-		}		
+		}
 		$resultUrl = LinkHelper::getDocumentUrl($resultPage);
 		$request->setAttribute('formAction', htmlentities($resultUrl));
 		$request->setAttribute('terms', htmlspecialchars($request->getParameter('terms')));
 		
 		// Open search.
 		$website = website_WebsiteModuleService::getInstance()->getCurrentWebsite();
-		$parameters = array('submitUrl' => $resultUrl);
+		$parameters = array('resultTag' => $this->getResultPageTag());
 		$openSearchUrl = LinkHelper::getActionUrl('solrsearch', 'GetOpenSearch', $parameters);
 		$this->getContext()->addLink('search', 'application/opensearchdescription+xml', $openSearchUrl, $website->getLabelAsHtml());
 		
@@ -32,14 +32,22 @@ class solrsearch_BlockFormAction extends website_BlockAction
 	}
 	
 	/**
+	 * @return string
+	 */
+	protected function getResultPageTag()
+	{
+		return 'contextual_website_website_modules_solrsearch_page-results';
+	}
+	
+	/**
 	 * @return website_persistentdocument_page
 	 */
-	protected function getResultPage()
+	protected final function getResultPage()
 	{
 		try
 		{
 			$currentWebsite = website_WebsiteModuleService::getInstance()->getCurrentWebsite();
-			return TagService::getInstance()->getDocumentByContextualTag('contextual_website_website_modules_solrsearch_page-results', $currentWebsite);
+			return TagService::getInstance()->getDocumentByContextualTag($this->getResultPageTag(), $currentWebsite);
 		}
 		catch (TagException $e)
 		{

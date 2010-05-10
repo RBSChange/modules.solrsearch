@@ -11,6 +11,9 @@ class solrsearch_GetOpenSearchAction extends f_action_BaseAction
 	 */
 	public function _execute($context, $request)
 	{
+		$parameters = array('resultTag' => $request->getParameter('resultTag'));
+		$submitUrl = LinkHelper::getActionUrl('solrsearch', 'GetSearchResults', $parameters);
+		$request->setAttribute('submitUrl', $submitUrl);
 		return 'Success';
 	}
 	

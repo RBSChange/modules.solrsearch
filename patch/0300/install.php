@@ -11,6 +11,7 @@ class solrsearch_patch_0300 extends patch_BasePatch
 	public function execute()
 	{
 		$this->executeModuleScript('init.xml', 'solrsearch');
+		$this->execChangeCommand('curl');
 	}
 
 	/**

@@ -2,7 +2,16 @@
 <urlrewriting>
 	<rules>
 		<rule redirection="solrsearch/GetOpenSearch">
-			<template>/OpenSearch.xml</template>
+			<template>/OpenSearch/description/$resultTag.xml</template>
+			<parameters>
+				<globalParameter name="resultTag" />
+			</parameters>
+		</rule>
+		<rule redirection="solrsearch/GetSearchResults">
+			<template>/OpenSearch/result/$resultTag.html</template>
+			<parameters>
+				<globalParameter name="resultTag" />
+			</parameters>
 		</rule>
 	</rules>
 </urlrewriting>
