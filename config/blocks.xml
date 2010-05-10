@@ -1,7 +1,21 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <blocks>
-	<block type="modules_solrsearch_searchform" display="" icon="form" label="&amp;modules.solrsearch.bo.blocks.Searchform;" />
-	<block type="modules_solrsearch_searchresults" display="" icon="list-block" label="&amp;modules.solrsearch.bo.blocks.Searchresults;">
+	<block type="modules_solrsearch_form" icon="form" label="&amp;modules.solrsearch.bo.blocks.Form.Title;">
+		<parameters>
+			<parameter name="submitMethod" type="String" default-value="get" from-list="modules_solrsearch/formmethods" />
+		</parameters>
+	</block>
+	<block type="modules_solrsearch_results" icon="list-block" label="&amp;modules.solrsearch.bo.blocks.Results.Title;">
+		<parameters>
+			<parameter name="nbItemsPerPage" type="Integer" default-value="10">
+				<constraints>min:5;max:100</constraints>
+			</parameter>
+			<parameter name="enableSuggestions" type="Boolean" default-value="true" />
+		</parameters>
+	</block>
+	<!-- Deprecated. -->
+	<block type="modules_solrsearch_searchform" display="" icon="form" label="&amp;modules.solrsearch.bo.blocks.Searchform;" hidden="true" />
+	<block type="modules_solrsearch_searchresults" display="" icon="list-block" label="&amp;modules.solrsearch.bo.blocks.Searchresults;" hidden="true">
 		<parameters>
 			<parameter name="displaysuggestions" type="Boolean" default-value="true" />
 		</parameters>

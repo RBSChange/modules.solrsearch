@@ -1,0 +1,42 @@
+<h2 change:h="" change:translate="modules.solrsearch.frontoffice.Search-result-title"></h2>
+
+<ul class="solrsearch-results-header" tal:condition="not: noHits">
+	<li class="count"><h4 change:h="" tal:content="resultsHeader | default"></h4></li>
+	<li class="sorting">
+		<tal:block change:translate="modules.solrsearch.frontoffice.Sort-byLabel" />
+		<ol>
+		<tal:block tal:condition="byScore">
+			<li class="first"><strong change:translate="modules.solrsearch.frontoffice.Sort-by-score"></strong></li>
+			<li class="last"><a class="link" change:currentPageLink="byDateParams" change:translate="modules.solrsearch.frontoffice.Sort-by-date"></a></li>
+		</tal:block>
+		<tal:block tal:condition="not: byScore">
+			<li class="first"><a class="link" change:currentPageLink="byScoreParams" change:translate="modules.solrsearch.frontoffice.Sort-by-score"></a></li>
+			<li class="last"><strong change:translate="modules.solrsearch.frontoffice.Sort-by-date"></strong></li>
+		</tal:block>
+		</ol>
+	</li>
+</ul>
+
+<p tal:condition="noHits" class="solrsearch-no-hits">
+	<em change:translate="modules.solrsearch.frontoffice.Search-results-emptyLabel"></em>
+	${terms}
+</p>
+
+<p tal:condition="exists: suggestionParams/solrsearchParam" class="solrsearch-suggestions">
+	<tal:block change:translate="modules.solrsearch.frontoffice.Search-suggestions" />
+	<a class="link" change:currentPageLink="suggestionParams" tal:content="suggestionParams/solrsearchParam/terms"></a>
+</p>
+
+<ol class="solrsearch-results-list">
+	<tal:block tal:repeat="item searchResults">
+		<li class="${php: repeat.item.odd ? 'odd' : 'even'}">
+			<h3 change:h="">
+				<img tal:attributes="alt item/getGauge/getAltText; src item/getGauge/getImageUrl; class item/getGauge/getClassName" />
+				<a class="link" change:link="document item/getDocument"><strong>${item/getHighlightedLabel}</strong></a>				
+			</h3>
+			<tal:block change:include="module item/get__ITEM_MODULE; template item/get__ITEM_TEMPLATE; type 'html'; item item" />
+		</li>
+	</tal:block>
+</ol>
+
+<tal:block change:paginator="paginator" />

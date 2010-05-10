@@ -1,4 +1,5 @@
-.modules-solrsearch-searchform form.cmxform label{
+.modules-solrsearch-searchform form.cmxform label,
+.modules-solrsearch-form form.cmxform label{
 	color: #000/*@var searchlabelfgcolor*/;
 	width: 57%;
 }
