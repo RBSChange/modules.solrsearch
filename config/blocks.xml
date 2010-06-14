@@ -3,6 +3,7 @@
 	<block type="modules_solrsearch_form" icon="form" label="&amp;modules.solrsearch.bo.blocks.Form.Title;">
 		<parameters>
 			<parameter name="submitMethod" type="String" default-value="get" from-list="modules_solrsearch/formmethods" />
+			<parameter name="complete" type="Boolean" default-value="false" />
 		</parameters>
 	</block>
 	<block type="modules_solrsearch_results" icon="list-block" label="&amp;modules.solrsearch.bo.blocks.Results.Title;">
@@ -11,6 +12,7 @@
 				<constraints>min:5;max:100</constraints>
 			</parameter>
 			<parameter name="enableSuggestions" type="Boolean" default-value="true" />
+			<parameter name="doDocumentModelFacet" type="Boolean" default-value="false" hidden="true" />
 		</parameters>
 	</block>
 	<!-- Deprecated. -->

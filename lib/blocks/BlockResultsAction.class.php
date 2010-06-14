@@ -22,24 +22,30 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 		
 		$queryString = trim($request->getParameter('terms'));
 		// If a term starts with a wildcard * or ?, bail...
-		if (preg_match('/^[?*]/', $queryString != 0 ))
+		if (preg_match('/(^| )[?*]/', $queryString) != 0)
 		{
 			return $this->handleBadQuery();
 		}
-		$terms = solrsearch_SolrsearchHelper::getValidTermsFromString($queryString);
-		if (count($terms) == 0)
+		
+		$textFieldQuery = solrsearch_SolrsearchHelper::parseString($queryString, "text");
+		if ($textFieldQuery->isEmpty())
 		{
 			return $this->handleEmptyQuery();
 		}
-		$normalizedTerms = join(' ', $terms);
-		$request->setAttribute('terms', htmlspecialchars($normalizedTerms));
+		
+		$request->setAttribute('terms', htmlspecialchars($queryString));
 		
 		$currentPage = $this->getCurrentPageNumber();
 		$itemsPerPage = $this->getNbItemsPerPage();
 		$sort = $this->getSortingMode();
-		$query = $this->getStandardQuery($terms, $currentPage, $itemsPerPage, $sort);
-		$searchResults = indexer_IndexService::getInstance()->search($query);
-		$this->comleteSearchResults($searchResults);
+		$query = $this->getStandardQuery($queryString, $currentPage, $itemsPerPage, $sort);
+		
+		$cfg = $this->getConfiguration();
+		$doSuggestion = $cfg->getEnableSuggestions();
+		$schemaVersion = indexer_SolrManager::getSchemaVersion();
+		$searchResults = indexer_IndexService::getInstance()->search($query,
+			$doSuggestion && $schemaVersion != "2.0.4");
+		$this->completeSearchResults($searchResults);
 				
 		// Error during search...
 		if ($searchResults === null)
@@ -48,19 +54,49 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 			return website_BlockView::ERROR;
 		}
 		
+		if ($cfg->getDoDocumentModelFacet() && indexer_SolrManager::hasFacetAbility())
+		{
+			$request->setAttribute("hasFacet", true);
+			$modelFacet = $searchResults->getFacetResult("documentModel");
+			if ($modelFacet->count() > 1)
+			{
+				foreach ($modelFacet as $facetCount)
+				{
+					$modelName = $facetCount->getValue();
+					$modelInfo = f_persistentdocument_PersistentDocumentModel::getModelInfo($modelName);
+					$facetCount->setValue(f_Locale::translate("&modules.".$modelInfo["module"].".document.".$modelInfo["document"].".Document-name;"));
+				}
+				$request->setAttribute("documentModelFacet", $modelFacet);
+			}
+		}
+		
 		$totalHitsCount = $searchResults->getTotalHitsCount();
 		$pageHitsCount = $searchResults->count();			
 		$request->setAttribute('searchResults', $searchResults);
 		$request->setAttribute('noHits', $pageHitsCount == 0);
 		
 		// Suggestions.
-		if ($this->getConfiguration()->getEnableSuggestions())
+		if ($doSuggestion)
 		{
-			$suggestions = solrsearch_SolrsearchHelper::getSuggestionsForTerms($terms, $this->getLang());
-			if (count($suggestions) > 0)
+			if ($schemaVersion == "2.0.4")
 			{
-				$params = array('solrsearchParam' => array('terms' => htmlspecialchars(join(' ', $suggestions))));
-				$request->setAttribute('suggestionParams', $params);
+				// This is the old way: multiple SolR requests (at least 2)
+				$terms = $textFieldQuery->getTerms();
+				$suggestions = solrsearch_SolrsearchHelper::getSuggestionsForTerms($terms, $this->getLang());
+				if (count($suggestions) > 0)
+				{
+					$params = array('solrsearchParam' => array('terms' => htmlspecialchars(join(' ', $suggestions))));
+					$request->setAttribute('suggestionParams', $params);
+				}
+			}
+			else
+			{
+				$suggestion = $searchResults->getSuggestion();
+				if (f_util_StringUtils::isNotEmpty($suggestion))
+				{
+					$params = array('solrsearchParam' => array('terms' => htmlspecialchars($suggestion)));
+					$request->setAttribute('suggestionParams', $params);
+				}
 			}
 		}
 		
@@ -68,17 +104,18 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 		$paginator = new paginator_Paginator('solrsearch', $currentPage, array(), $itemsPerPage);
 		$paginator->setPageCount((int) ceil($totalHitsCount / $itemsPerPage));
 		$paginator->setCurrentPageNumber($currentPage);
-		$paginator->setExtraParameters(array('terms' => htmlspecialchars($normalizedTerms), 'sort' => $sort));
+		$paginator->setExtraParameters(array('terms' => htmlspecialchars($queryString), 'sort' => $sort));
 		$request->setAttribute('paginator', $paginator);
 		
-		// Sort Paramters.
-		$request->setAttribute('byScoreParams', array('solrsearchParam' => array('terms' => $normalizedTerms, 'sort' => 'score')));
-		$request->setAttribute('byDateParams', array('solrsearchParam' => array('terms' => $normalizedTerms, 'sort' => 'date')));
+		// Sort Parameters.
+		$request->setAttribute('byScoreParams', array('solrsearchParam' => array('terms' => $queryString, 'sort' => 'score')));
+		$request->setAttribute('byDateParams', array('solrsearchParam' => array('terms' => $queryString, 'sort' => 'date')));
 		$request->setAttribute('byScore', $sort == 'score');
 		
 		$currentOffset = $searchResults->getFirstHitOffset() + 1;
 		$header = f_Locale::translate('&modules.solrsearch.frontoffice.Search-results-header;', array('start' => $currentOffset, 'stop' => $currentOffset + $pageHitsCount - 1, 'total' => $totalHitsCount));
 		$request->setAttribute('resultsHeader', $header);
+		
 		return website_BlockView::SUCCESS;
 	}
 	
@@ -107,10 +144,30 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 	 * @param string $sort
 	 * @return indexer_Query
 	 */
-	protected function getStandardQuery($terms, $currentPage, $itemsPerPage, $sort)
+	protected function getStandardQuery($queryString, $currentPage, $itemsPerPage, $sort)
 	{
-		$masterQuery = solrsearch_SolrsearchHelper::standardTextQueryForTerms($terms);
-		$masterQuery->setLang($this->getLang());
+		$cfg = $this->getConfiguration();
+		
+		$masterQuery = indexer_BooleanQuery::andInstance();
+		$lang = $this->getLang();
+		$textQuery = indexer_BooleanQuery::orInstance();
+		$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, "text_".$lang));
+		$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, "label_".$lang, "AND", 
+		 $cfg->getConfigurationParameter("labelBoost", 8)));
+		$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, $lang."_aggregateText", "AND",
+		 $cfg->getConfigurationParameter("localizedAggregateBoost", 4)));
+		if (indexer_SolrManager::hasAggregateText())
+		{
+			$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, "aggregateText", "AND",
+			 $cfg->getConfigurationParameter("exactBoost", 16)));
+		}
+		if ($cfg->getDoDocumentModelFacet() && indexer_SolrManager::hasFacetAbility())
+		{
+			$masterQuery->addFacet("documentModel");
+		}
+		
+		$masterQuery->add($textQuery);
+		$masterQuery->setLang($lang);
 		
 		$website = website_WebsiteModuleService::getInstance()->getCurrentWebsite();
 		$filter = indexer_QueryHelper::andInstance();
@@ -156,16 +213,32 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 	}
 	
 	/**
+	 * @deprecated use completeSearchResults
 	 * @param array $searchResults
 	 */
 	protected function comleteSearchResults($searchResults)
+	{
+		return $this->completeSearchResults($searchResults);
+	}
+	
+	/**
+	 * @param array $searchResults
+	 */
+	protected function completeSearchResults($searchResults)
 	{
 		foreach ($searchResults as $searchResult)
 		{
 			$document = $searchResult->getDocument();
 			$documentService = $document->getDocumentService();
-			if (f_util_ClassUtils::methodExists($documentService, 'getSolrserachResultItemTemplate'))
+			if (f_util_ClassUtils::methodExists($documentService, 'getSolrsearchResultItemTemplate'))
 			{
+				$template = $documentService->getSolrsearchResultItemTemplate($document, get_class());
+				$searchResult->setProperty('__ITEM_MODULE', $template['module']);
+				$searchResult->setProperty('__ITEM_TEMPLATE', $template['template']);
+			}
+			elseif (f_util_ClassUtils::methodExists($documentService, 'getSolrserachResultItemTemplate'))
+			{
+				// TODO: remove (bad syntax)
 				$template = $documentService->getSolrserachResultItemTemplate($document, get_class());
 				$searchResult->setProperty('__ITEM_MODULE', $template['module']);
 				$searchResult->setProperty('__ITEM_TEMPLATE', $template['template']);

@@ -58,24 +58,33 @@ class solrsearch_SolrsearchHelper
 	 */
 	public static function getSuggestionsForTerms($terms, $lang)
 	{
-		$res = array();
-		foreach ($terms as $term)
+		$schemaVersion = indexer_SolrManager::getSchemaVersion();
+		if ($schemaVersion == "2.0.4")
 		{
-			$suggestion = indexer_IndexService::getInstance()->getSuggestionForWord(mb_strtolower($term), $lang);
-			if (!is_null($suggestion))
+			$res = array();
+			foreach ($terms as $term)
 			{
-				$res[] = $suggestion;
+				$suggestion = indexer_IndexService::getInstance()->getSuggestionForWord(mb_strtolower($term), $lang);
+				if (!is_null($suggestion))
+				{
+					$res[] = $suggestion;
+				}
+				else
+				{
+					$res[] = $term;
+				}
 			}
-			else
+			if (count(array_diff($terms, $res)) == 0)
 			{
-				$res[] = $term;
+				return array();
 			}
+			return $res;
 		}
-		if (count(array_diff($terms, $res)) == 0)
+		else
 		{
-			return array();
+			$res = indexer_IndexService::getInstance()->getSuggestionForWords($terms, $lang);
+			return explode(" ", $res);
 		}
-		return $res;
 	}
 	
 	/**
@@ -108,5 +117,189 @@ class solrsearch_SolrsearchHelper
 			$masterQuery->add($bool);
 		}
 		return $masterQuery;
+	}
+	
+	/**
+	 * @param String $string
+	 * @param String $fieldName
+	 * @param String $op "AND" or "OR"
+	 * @return indexer_BooleanQuery
+	 */
+	public static function parseString($string, $fieldName, $op = "AND", $defaultBoost = null)
+	{
+		$query = indexer_BooleanQuery::byStringInstance($op);
+		$stringLen = strlen($string);
+		$term = null;
+		$quoted = false;
+		for ($i = 0; $i < $stringLen; $i++)
+		{
+			$c = $string[$i];
+			if ($c == '"')
+			{
+				if ($term === null)
+				{
+					// begin new term
+					$term = new indexer_PhraseQuery($fieldName);
+				}
+				elseif (!($term instanceof indexer_PhraseQuery))
+				{
+					// begin new term && end term
+					self::addTerm($query, $term, $string, $stringLen, $i);
+					$term = new indexer_PhraseQuery($fieldName);
+				}
+				else
+				{
+					// end term
+					self::addTerm($query, $term, $string, $stringLen, $i);
+				}
+			}
+			elseif ($c == ' ' || $c == '^')
+			{
+				if ($term instanceof indexer_PhraseQuery)
+				{
+					$term->add($c);
+				}
+				else
+				{
+					self::addTerm($query, $term, $string, $stringLen, $i);
+				}
+			}
+			elseif ($c == '+')
+			{
+				if ($term === null)
+				{
+					$term = self::beginTerm($fieldName, $string, $stringLen, $i);
+					$term->required();
+				}
+				else
+				{
+					$term->add($c);
+				}
+			}
+			elseif ($c == '-')
+			{
+				if ($term === null)
+				{
+					$term = self::beginTerm($fieldName, $string, $stringLen, $i);
+					$term->prohibited();
+				}
+				else
+				{
+					$term->add($c);
+				}
+			}
+			else
+			{
+				if ($term === null)
+				{
+					$term = new indexer_TermQuery($fieldName);
+				}
+				$term->add($c);
+			}
+		}
+
+		$wasAdded = self::addTerm($query, $term);
+		/*
+		 if ($wasAdded && $quoted)
+		 {
+			echo "Warning: malformed expression syntax";
+			}
+			*/
+
+		if ($defaultBoost !== null)
+		{
+			foreach ($query->getSubqueries() as $termQuery)
+			{
+				$boost = $termQuery->getBoost();
+				if ($boost === null)
+				{
+					$boost = 1;
+				}
+				$boost = $boost * $defaultBoost;
+				$termQuery->setBoost($boost);
+			}
+		}
+
+		return $query;
+	}
+
+	/**
+	 * @param indexer_BooleanQuery $query
+	 * @param String $term
+	 * @return Boolean true if term was added
+	 */
+
+	private static function addTerm($query, &$term, $string = null, $stringLen = null, &$i = null)
+	{
+		$boost = null;
+		$proximity = null;
+		if ($string !== null)
+		{
+			if ($i < ($stringLen - 1) && '~' == $string[$i+1])
+			{
+				$j = $i+2;
+				$proximity = "";
+				while ($j < $stringLen && $string[$j] != ' ' && $string[$j] != '"' && $string[$j] != "^")
+				{
+					$string[$j];
+					$proximity .= $string[$j];
+					$j++;
+				}
+				$i = $j;
+				$proximity = floatval($proximity);
+			}
+			if ($string[$i] == '^')
+			{
+				$i--;
+			}
+			if ($i < ($stringLen - 1) && '^' == $string[$i+1])
+			{
+				$j = $i+2;
+				$boost = "";
+				while ($j < $stringLen && $string[$j] != ' ' && $string[$j] != '"')
+				{
+					$boost .= $string[$j];
+					$j++;
+				}
+				$i = $j;
+				$boost = floatval($boost);
+			}
+		}
+		if ($term !== null && !$term->isEmpty())
+		{
+			if ($boost !== null)
+			{
+				$term->setBoost($boost);
+			}
+			if ($term instanceof indexer_PhraseQuery && $proximity !== null)
+			{
+				$term->setProximity($proximity);
+			}
+			$query->add($term);
+			$term = null;
+			return true;
+		}
+		$term = null;
+		return false;
+	}
+
+	/**
+	 * @param String $string
+	 * @param Integer $queryLen
+	 * @param Integer $i
+	 * @return indexer_TermQuery
+	 */
+	private static function beginTerm($fieldName, $string, $stringLen, &$i)
+	{
+		if ($i < ($stringLen-1) && $string[$i+1] == '"')
+		{
+			$term = new indexer_PhraseQuery($fieldName);
+			$i++;
+		}
+		else
+		{
+			$term = new indexer_TermQuery($fieldName);
+		}
+		return $term;
 	}
 }

@@ -18,6 +18,16 @@ class solrsearch_BlockFormAction extends website_BlockAction
 		{
 			return website_BlockView::NONE;
 		}
+		
+		$cfg = $this->getConfiguration();
+		$doCompletion = f_util_Convert::toBoolean(Framework::getConfigurationValue("modules/solrsearch/form-completion", $cfg->getComplete()));
+		if ($doCompletion)
+		{
+			$this->getPage()->addScript("modules.solrsearch.lib.js.jquery-autocomplete");
+			$this->getPage()->addStyle("modules.solrsearch.autocomplete");
+		}
+		$request->setAttribute("doCompletion", $doCompletion);
+		
 		$resultUrl = LinkHelper::getDocumentUrl($resultPage);
 		$request->setAttribute('formAction', htmlentities($resultUrl));
 		$request->setAttribute('terms', htmlspecialchars($request->getParameter('terms')));

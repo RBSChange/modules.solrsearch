@@ -2,6 +2,11 @@
 
 <ul class="solrsearch-results-header" tal:condition="not: noHits">
 	<li class="count"><h4 change:h="" tal:content="resultsHeader | default"></h4></li>
+	<div class="solrsearch-documentmodel-facet" tal:condition="exists: documentModelFacet">
+		<ul class="normal">
+			<li tal:repeat="facetCount documentModelFacet">${facetCount/getValue} (${php: number_format(facetCount.getCount(), 0, ',', ' ')})</li>
+		</ul>
+	</div>
 	<li class="sorting">
 		<tal:block change:translate="modules.solrsearch.frontoffice.Sort-byLabel" />
 		<ol>
