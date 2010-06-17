@@ -72,11 +72,36 @@ class solrsearch_CompleteAction extends f_action_BaseAction
 		$websiteQuery->add(new indexer_TermQuery($parentWebsiteField, $website->getId()));
 		$query->add($websiteQuery);
 
-		$suggestFacet = new indexer_Facet($fieldName."_complete", $q);
+		if ($op == "AND")
+		{
+			$suggestFacet = new indexer_Facet($fieldName."_complete", $q);
+			$resultPrefix = "";
+		}
+		else
+		{
+			$lastSpace = strrpos($q, " ");
+			$resultPrefix = ($lastSpace === false) ?  " " : substr($q, 0, $lastSpace)." ";
+			 
+			if (f_util_StringUtils::endsWith($q, " "))
+			{
+				$facetPrefix = "";
+			}
+			else
+			{
+				$textQuery = solrsearch_SolrsearchHelper::parseString($q, "aggregateText");
+				$lastTermQuery = f_util_ArrayUtils::lastElement($textQuery->getSubQueries());
+				$facetPrefix = $lastTermQuery->getValue();	
+			}
+			$suggestFacet = new indexer_Facet($fieldName."_complete", $facetPrefix);
+		}
+		
 		$suggestFacet->method = indexer_Facet::METHOD_ENUM;
 		$suggestFacet->limit = intval($request->getParameter("limit", "100"));
 		
 		$query->addFacet($suggestFacet);
+		
+		// For sub-classes
+		$this->completeQuery($context, $request, $query);
 		
 		$results = indexer_IndexService::getInstance()->search($query);
 		
@@ -84,7 +109,7 @@ class solrsearch_CompleteAction extends f_action_BaseAction
 		{
 			foreach ($results->getFacetResult($fieldName."_complete") as $facetCount)
 			{
-				echo $facetCount->getValue()."|".$facetCount->getCount()."\n";
+				echo $resultPrefix.$facetCount->getValue()."|".$facetCount->getCount()."\n";
 			}
 		}
 		elseif ($out == "opensearch")
@@ -100,7 +125,7 @@ class solrsearch_CompleteAction extends f_action_BaseAction
 					echo ",";
 				}
 				echo '"';
-				echo str_replace('"', '\"', $facetCount->getValue());
+				echo str_replace('"', '\"', $resultPrefix.$facetCount->getValue());
 				echo '"';
 				$i++;
 			}
@@ -123,8 +148,18 @@ class solrsearch_CompleteAction extends f_action_BaseAction
 		}
 		else
 		{
-			
+			// TODO: throw ?
 		}
+	}
+	
+	/**
+	 * @param Context $context
+	 * @param Request $request
+	 * @param indexer_BooleanQuery $query
+	 */
+	protected function completeQuery($context, $request, $query)
+	{
+		// empty: this is an extension point
 	}
 
 	function isSecure()
