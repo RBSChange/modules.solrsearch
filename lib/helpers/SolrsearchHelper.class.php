@@ -2,8 +2,9 @@
 
 class solrsearch_SolrsearchHelper
 {
-	const DEFAULT_AGGREGRATE_BOOST = 16;
-	const DEFAULT_LABEL_BOOST = 4;
+	const DEFAULT_LOCALIZED_AGGREGRATE_BOOST = 4;
+	const DEFAULT_EXACT_BOOST = 16;
+	const DEFAULT_LABEL_BOOST = 8;
 	const INVALID_QUERY_TERMS_REGEXP = '/([,;:\"\'&\.\^+\-(){}#~!?§=\/%]|\bAND\b|\bOR\b|\bNOT\b)+/u';
 	
 	const SORT_OPTIONS_LIST_ID = 'modules_solrsearch/sortoptions';
@@ -102,6 +103,7 @@ class solrsearch_SolrsearchHelper
 	 * Given the array of terms $terms do a standard text search. 
 	 *
 	 * @param Array $terms
+	 * @deprecated use standardTextQueryForQueryString
 	 * @return indexer_Query
 	 */
 	public static function standardTextQueryForTerms($terms)
@@ -111,12 +113,53 @@ class solrsearch_SolrsearchHelper
 		{
 			$aggregateQuery = new indexer_TermQuery(RequestContext::getInstance()->getLang() . '_aggregateText', strtolower($word));
 			$bool = indexer_QueryHelper::orInstance();
-			$bool->add($aggregateQuery->setBoost(self::DEFAULT_AGGREGRATE_BOOST));
+			$bool->add($aggregateQuery->setBoost(self::DEFAULT_LOCALIZED_AGGREGRATE_BOOST));
 			$bool->add(indexer_QueryHelper::localizedFieldInstance('label', $word)->setBoost(self::DEFAULT_LABEL_BOOST));
 			$bool->add(indexer_QueryHelper::localizedFieldInstance('text', $word));
 			$masterQuery->add($bool);
 		}
 		return $masterQuery;
+	}
+	
+	/**
+	 * @param String $queryString
+	 * @param String $lang default current lang
+	 * @param Integer $labelBoost default DEFAULT_LABEL_BOOST
+	 * @param Integer $localizedAggregateBoost default DEFAULT_LOCALIZED_AGGREGRATE_BOOST
+	 * @param Integer $exactBoost default DEFAULT_EXACT_BOOST
+	 * @return indexer_BooleanQuery
+	 */
+	public static function standardTextQueryForQueryString($queryString, $lang = null, $labelBoost = null, $localizedAggregateBoost = null, $exactBoost = null)
+	{
+		if ($lang === null)
+		{
+			$lang = RequestContext::getInstance()->getLang();
+		}
+		if ($labelBoost === null)
+		{
+			$labelBoost = self::DEFAULT_LABEL_BOOST;
+		}
+		if ($localizedAggregateBoost === null)
+		{
+			$localizedAggregateBoost = self::DEFAULT_LOCALIZED_AGGREGRATE_BOOST;
+		}
+		if ($exactBoost === null)
+		{
+			$exactBoost = self::DEFAULT_EXACT_BOOST;
+		}
+		
+		$textQuery = indexer_BooleanQuery::orInstance();
+		$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, "text_".$lang));
+		$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, "label_".$lang, "AND", 
+		 $labelBoost));
+		$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, $lang."_aggregateText", "AND",
+		 $localizedAggregateBoost));
+		if (indexer_SolrManager::hasAggregateText())
+		{
+			$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, "aggregateText", "AND",
+			 $exactBoost));
+		}
+		return $textQuery;
 	}
 	
 	/**
@@ -130,7 +173,6 @@ class solrsearch_SolrsearchHelper
 		$query = indexer_BooleanQuery::byStringInstance($op);
 		$stringLen = strlen($string);
 		$term = null;
-		$quoted = false;
 		for ($i = 0; $i < $stringLen; $i++)
 		{
 			$c = $string[$i];

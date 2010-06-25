@@ -149,25 +149,17 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 		$cfg = $this->getConfiguration();
 		
 		$masterQuery = indexer_BooleanQuery::andInstance();
-		$lang = $this->getLang();
-		$textQuery = indexer_BooleanQuery::orInstance();
-		$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, "text_".$lang));
-		$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, "label_".$lang, "AND", 
-		 $cfg->getConfigurationParameter("labelBoost", 8)));
-		$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, $lang."_aggregateText", "AND",
-		 $cfg->getConfigurationParameter("localizedAggregateBoost", 4)));
-		if (indexer_SolrManager::hasAggregateText())
-		{
-			$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, "aggregateText", "AND",
-			 $cfg->getConfigurationParameter("exactBoost", 16)));
-		}
+		$textQuery = solrsearch_SolrsearchHelper::standardTextQueryForQueryString($queryString, $this->getLang(),
+		 $cfg->getConfigurationParameter("labelBoost", solrsearch_SolrsearchHelper::DEFAULT_LABEL_BOOST),
+		 $cfg->getConfigurationParameter("localizedAggregateBoost", solrsearch_SolrsearchHelper::DEFAULT_LOCALIZED_AGGREGRATE_BOOST),
+		 $cfg->getConfigurationParameter("exactBoost", solrsearch_SolrsearchHelper::DEFAULT_EXACT_BOOST));
 		if ($cfg->getDoDocumentModelFacet() && indexer_SolrManager::hasFacetAbility())
 		{
 			$masterQuery->addFacet("documentModel");
 		}
 		
 		$masterQuery->add($textQuery);
-		$masterQuery->setLang($lang);
+		$masterQuery->setLang($this->getLang());
 		
 		$website = website_WebsiteModuleService::getInstance()->getCurrentWebsite();
 		$filter = indexer_QueryHelper::andInstance();
