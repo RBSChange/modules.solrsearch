@@ -71,10 +71,12 @@ class solrsearch_CompleteAction extends f_action_BaseAction
 		$websiteQuery->add(new indexer_TermQuery($parentWebsiteField, 0));
 		$websiteQuery->add(new indexer_TermQuery($parentWebsiteField, $website->getId()));
 		$query->add($websiteQuery);
-
+		
+		$completeFieldName = ($request->hasNonEmptyParameter("completeFieldName")) ?
+			$request->getParameter("completeFieldName") : $fieldName."_complete";
 		if ($op == "AND")
 		{
-			$suggestFacet = new indexer_Facet($fieldName."_complete", $q);
+			$suggestFacet = new indexer_Facet($completeFieldName, $q);
 			$resultPrefix = "";
 		}
 		else
@@ -92,7 +94,7 @@ class solrsearch_CompleteAction extends f_action_BaseAction
 				$lastTermQuery = f_util_ArrayUtils::lastElement($textQuery->getSubQueries());
 				$facetPrefix = $lastTermQuery->getValue();	
 			}
-			$suggestFacet = new indexer_Facet($fieldName."_complete", $facetPrefix);
+			$suggestFacet = new indexer_Facet($completeFieldName, $facetPrefix);
 		}
 		
 		$suggestFacet->method = indexer_Facet::METHOD_ENUM;
