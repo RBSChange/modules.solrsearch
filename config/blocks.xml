@@ -2,6 +2,9 @@
 <blocks>
 	<block type="modules_solrsearch_form" icon="form" label="&amp;modules.solrsearch.bo.blocks.Form.Title;">
 		<parameters>
+			<parameter name="module" default-value="solrsearch" type="String" hidden="true"/>
+			<parameter name="resultTag"  type="String" hidden="true"
+				default-value="contextual_website_website_modules_solrsearch_page-results"/>
 			<parameter name="submitMethod" type="String" default-value="get" from-list="modules_solrsearch/formmethods" />
 			<parameter name="complete" type="Boolean" default-value="false" />
 		</parameters>

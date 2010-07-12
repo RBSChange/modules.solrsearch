@@ -46,7 +46,8 @@ class solrsearch_BlockFormAction extends website_BlockAction
 	 */
 	protected function getResultPageTag()
 	{
-		return 'contextual_website_website_modules_solrsearch_page-results';
+		return $this->getConfiguration()->getConfigurationParameter('resultTag',
+		 'contextual_website_website_modules_solrsearch_page-results');
 	}
 	
 	/**
