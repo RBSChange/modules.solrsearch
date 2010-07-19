@@ -43,8 +43,9 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 		$cfg = $this->getConfiguration();
 		$doSuggestion = $cfg->getEnableSuggestions();
 		$schemaVersion = indexer_SolrManager::getSchemaVersion();
-		$searchResults = indexer_IndexService::getInstance()->search($query,
-			$doSuggestion && $schemaVersion != "2.0.4");
+		
+		$suggestionTerms = $doSuggestion && $schemaVersion != "2.0.4" ? $textFieldQuery->getTerms() : array();
+		$searchResults = indexer_IndexService::getInstance()->search($query, $suggestionTerms);
 		$this->completeSearchResults($searchResults);
 				
 		// Error during search...
