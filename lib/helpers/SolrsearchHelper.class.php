@@ -59,6 +59,10 @@ class solrsearch_SolrsearchHelper
 	 */
 	public static function getSuggestionsForTerms($terms, $lang)
 	{
+		if (f_util_ArrayUtils::isEmpty($terms))
+		{
+			return array();
+		}
 		$schemaVersion = indexer_SolrManager::getSchemaVersion();
 		if ($schemaVersion == "2.0.4")
 		{

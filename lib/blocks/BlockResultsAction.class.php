@@ -44,7 +44,7 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 		$doSuggestion = $cfg->getEnableSuggestions();
 		$schemaVersion = indexer_SolrManager::getSchemaVersion();
 		
-		$suggestionTerms = $doSuggestion && $schemaVersion != "2.0.4" ? $textFieldQuery->getTerms() : array();
+		$suggestionTerms = $doSuggestion ? $textFieldQuery->getTerms() : null;
 		$searchResults = indexer_IndexService::getInstance()->search($query, $suggestionTerms);
 		$this->completeSearchResults($searchResults);
 				
@@ -79,11 +79,10 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 		// Suggestions.
 		if ($doSuggestion)
 		{
-			if ($schemaVersion == "2.0.4")
+			if (!indexer_SolrManager::hasSuggestionInOnRequest())
 			{
 				// This is the old way: multiple SolR requests (at least 2)
-				$terms = $textFieldQuery->getTerms();
-				$suggestions = solrsearch_SolrsearchHelper::getSuggestionsForTerms($terms, $this->getLang());
+				$suggestions = solrsearch_SolrsearchHelper::getSuggestionsForTerms($suggestionTerms, $this->getLang());
 				if (count($suggestions) > 0)
 				{
 					$params = array('solrsearchParam' => array('terms' => htmlspecialchars(join(' ', $suggestions))));
