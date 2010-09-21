@@ -218,27 +218,45 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 	 */
 	protected function completeSearchResults($searchResults)
 	{
-		foreach ($searchResults as $searchResult)
+		$count = $searchResults->count();
+		for ($index = 0; $index <$count; $index++) 
 		{
-			$document = $searchResult->getDocument();
-			$documentService = $document->getDocumentService();
-			if (f_util_ClassUtils::methodExists($documentService, 'getSolrsearchResultItemTemplate'))
+			$searchResult = $searchResults->offsetGet($index);
+			try 
 			{
-				$template = $documentService->getSolrsearchResultItemTemplate($document, get_class());
-				$searchResult->setProperty('__ITEM_MODULE', $template['module']);
-				$searchResult->setProperty('__ITEM_TEMPLATE', $template['template']);
+				$document = $searchResult->getDocument();
+				if ($document->isPublished())
+				{
+					$documentService = $document->getDocumentService();
+					if (f_util_ClassUtils::methodExists($documentService, 'getSolrsearchResultItemTemplate'))
+					{
+						$template = $documentService->getSolrsearchResultItemTemplate($document, get_class());
+						$searchResult->setProperty('__ITEM_MODULE', $template['module']);
+						$searchResult->setProperty('__ITEM_TEMPLATE', $template['template']);
+					}
+					elseif (f_util_ClassUtils::methodExists($documentService, 'getSolrserachResultItemTemplate'))
+					{
+						// TODO: remove (bad syntax)
+						$template = $documentService->getSolrserachResultItemTemplate($document, get_class());
+						$searchResult->setProperty('__ITEM_MODULE', $template['module']);
+						$searchResult->setProperty('__ITEM_TEMPLATE', $template['template']);
+					}
+					else
+					{
+						$searchResult->setProperty('__ITEM_MODULE', 'solrsearch');
+						$searchResult->setProperty('__ITEM_TEMPLATE', 'Solrsearch-Inc-DefaultResultDetail');
+					}
+				}
+				else
+				{
+					Framework::warn(__METHOD__ . " Unpublished document " . $document->__toString());
+					$searchResults->offsetunset($index);
+				}
 			}
-			elseif (f_util_ClassUtils::methodExists($documentService, 'getSolrserachResultItemTemplate'))
+			catch (Exception $e)
 			{
-				// TODO: remove (bad syntax)
-				$template = $documentService->getSolrserachResultItemTemplate($document, get_class());
-				$searchResult->setProperty('__ITEM_MODULE', $template['module']);
-				$searchResult->setProperty('__ITEM_TEMPLATE', $template['template']);
-			}
-			else
-			{
-				$searchResult->setProperty('__ITEM_MODULE', 'solrsearch');
-				$searchResult->setProperty('__ITEM_TEMPLATE', 'Solrsearch-Inc-DefaultResultDetail');
+				Framework::exception($e);
+				$searchResults->offsetunset($index);
 			}
 		}
 	}
