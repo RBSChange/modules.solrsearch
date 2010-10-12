@@ -108,8 +108,8 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 		$request->setAttribute('paginator', $paginator);
 		
 		// Sort Parameters.
-		$request->setAttribute('byScoreParams', array('solrsearchParam' => array('terms' => $queryString, 'sort' => 'score')));
-		$request->setAttribute('byDateParams', array('solrsearchParam' => array('terms' => $queryString, 'sort' => 'date')));
+		$request->setAttribute('byScoreParams', array('solrsearchParam' => array('terms' => $queryString, 'sort' => 'score', 'page' => '1')));
+		$request->setAttribute('byDateParams', array('solrsearchParam' => array('terms' => $queryString, 'sort' => 'date', 'page' => '1')));
 		$request->setAttribute('byScore', $sort == 'score');
 		
 		$currentOffset = $searchResults->getFirstHitOffset() + 1;
