@@ -41,8 +41,6 @@ class solrsearch_SynonymslistService extends f_persistentdocument_DocumentServic
 	}
 
 	/**
-	 * Enter description here...
-	 *
 	 * @param solrsearch_persistentdocument_synonymslist $document
 	 * @param unknown_type $content
 	 */
