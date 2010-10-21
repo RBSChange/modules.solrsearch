@@ -125,4 +125,20 @@
 		<locale lang="fr">résultats de recherche</locale>
 		<locale lang="en">search result</locale>
 	</entity>
+	<entity id="documentModelFilter">
+		<locale lang="fr">type de document</locale>
+		<locale lang="en">document type</locale>
+	</entity>
+	<entity id="removeDocumentModelFilter">
+		<locale lang="fr">enlever</locale>
+		<locale lang="en">remove</locale>
+	</entity>
+	<entity id="removeDocumentModelFilterTitle">
+		<locale lang="fr">enlever le filtre sur le type de document</locale>
+		<locale lang="en">remove document type fitler</locale>
+	</entity>
+	<entity id="documentTypes">
+		<locale lang="fr">types de document</locale>
+		<locale lang="en">document types</locale>
+	</entity>
 </localization>

@@ -28,4 +28,13 @@ ol.solrsearch-results-list li ul li{
 	margin: 0;
 }
 
+ol.solrsearch-documentmodel-facet li {
+  list-style-type: none;
+  display: inline;
+  margin-right: 10px;
+}
+ol.solrsearch-documentmodel-facet {
+  margin-bottom: 10px;
+}
+
 @import url(/modules/solrsearch/style/frontoffice.!xul.all.css);

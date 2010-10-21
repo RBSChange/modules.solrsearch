@@ -2,11 +2,15 @@
 
 <ul class="solrsearch-results-header" tal:condition="not: noHits">
 	<li class="count"><h4 change:h="" tal:content="resultsHeader | default"></h4></li>
-	<div class="solrsearch-documentmodel-facet" tal:condition="exists: documentModelFacet">
-		<ul class="normal">
-			<li tal:repeat="facetCount documentModelFacet">${facetCount/getValue} (${php: number_format(facetCount.getCount(), 0, ',', ' ')})</li>
-		</ul>
-	</div>
+	<div tal:condition="exists: documentModelFacet">
+		<ol class="solrsearch-documentmodel-facet">
+	        <li tal:repeat="facetCount documentModelFacet"><a change:currentPageLink="solrsearchParam[documentModel] repeat/facetCount/key">${facetCount/getValue} (${php: number_format(facetCount.getCount(), 0, ',', ' ')})</a></li>
+    	</ol>
+    </div>
+   	<p class="normal solrsearch-results-filters" tal:condition="php: isset(documentModel) && documentModel != ''">
+    	<span change:translate="modules.solrsearch.frontoffice.DocumentModelFilterLabel" />
+        ${documentModelLabel} <a change:currentPageLink="solrsearchParam[documentModel] ''" change:translate="modules.solrsearch.frontoffice.RemoveDocumentModelFilter" change:i18nattr="title &modules.solrsearch.frontoffice.RemoveDocumentModelFilterTitle;">enlever</a>
+    </p>
 	<li class="sorting">
 		<tal:block change:translate="modules.solrsearch.frontoffice.Sort-byLabel" />
 		<ol>

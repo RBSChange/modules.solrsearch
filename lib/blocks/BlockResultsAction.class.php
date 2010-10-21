@@ -38,11 +38,10 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 		$currentPage = $this->getCurrentPageNumber();
 		$itemsPerPage = $this->getNbItemsPerPage();
 		$sort = $this->getSortingMode();
-		$query = $this->getStandardQuery($queryString, $currentPage, $itemsPerPage, $sort);
+		$query = $this->getStandardQuery($queryString, $currentPage, $itemsPerPage, $sort, $request);
 		
 		$cfg = $this->getConfiguration();
 		$doSuggestion = $cfg->getEnableSuggestions();
-		$schemaVersion = indexer_SolrManager::getSchemaVersion();
 		
 		$suggestionTerms = $doSuggestion ? $textFieldQuery->getTerms() : null;
 		$searchResults = indexer_IndexService::getInstance()->search($query, $suggestionTerms);
@@ -142,9 +141,10 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 	 * @param integer $currentPage
 	 * @param integer $itemsPerPage
 	 * @param string $sort
+	 * @param f_mvc_Request $request
 	 * @return indexer_Query
 	 */
-	protected function getStandardQuery($queryString, $currentPage, $itemsPerPage, $sort)
+	protected function getStandardQuery($queryString, $currentPage, $itemsPerPage, $sort, $request)
 	{
 		$cfg = $this->getConfiguration();
 		
@@ -156,6 +156,14 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 		if ($cfg->getDoDocumentModelFacet() && indexer_SolrManager::hasFacetAbility())
 		{
 			$masterQuery->addFacet("documentModel");
+		}
+		
+		if ($request->hasNonEmptyParameter("documentModel"))
+		{
+			$modelName = $request->getParameter("documentModel");
+			$masterQuery->add(new indexer_TermQuery("documentModel", $modelName));
+			$modelInfo = f_persistentdocument_PersistentDocumentModel::getModelInfo($modelName);
+			$request->setAttribute("documentModelLabel", f_Locale::translate("&modules.".$modelInfo["module"].".document.".$modelInfo["document"].".Document-name;"));
 		}
 		
 		$masterQuery->add($textQuery);
