@@ -7,12 +7,17 @@ class solrsearch_SearchBackofficeJSONAction extends f_action_BaseJSONAction
 	 */
 	public function _execute($context, $request)
 	{
-		$terms = solrsearch_SolrsearchHelper::getTermsFromString(solrsearch_SolrsearchHelper::escapeString($request->getParameter("terms")) . '*');
-		if (f_util_ArrayUtils::isNotEmpty($terms))
+		$textQuery = solrsearch_SolrsearchHelper::standardTextQueryForQueryString(f_util_StringUtils::strip_accents($request->getParameter("terms")));
+		if (!$textQuery->isEmpty())
 		{
 			$query = indexer_QueryHelper::orInstance();
-			$query->add(solrsearch_SolrsearchHelper::standardTextQueryForTerms($terms));
-			$query->add(new indexer_TermQuery('id', str_replace('*', '', f_util_ArrayUtils::firstElement($terms) . "/" . RequestContext::getInstance()->getLang())));
+			$query->add($textQuery);
+			$query->add(solrsearch_SolrsearchHelper::standardTextQueryForQueryString(f_util_StringUtils::strip_accents($request->getParameter("terms"))."*"));
+			$firstTerm = f_util_ArrayUtils::firstElement(explode(" ", $request->getParameter("terms")));
+			if (is_numeric($firstTerm))
+			{
+				$query->add(new indexer_TermQuery('id', $firstTerm . "/" . RequestContext::getInstance()->getLang()));
+			}
 			
 			$filter = indexer_QueryHelper::andInstance();
 			if ($request->hasParameter("parentId"))
@@ -46,14 +51,14 @@ class solrsearch_SearchBackofficeJSONAction extends f_action_BaseJSONAction
 		$suffix = '';
 		switch ($parameter)
 		{
-			case 'author':
-			case 'publicationstatus':
+			case 'author' :
+			case 'publicationstatus' :
 				$suffix = '_idx_str';
 				break;
-			case 'label':
+			case 'label' :
 				return RequestContext::getInstance()->getLang() . '_sortableLabel';
-			case 'creationdate':
-			case 'modificationdate':
+			case 'creationdate' :
+			case 'modificationdate' :
 				$suffix = '_idx_dt';
 				break;
 		}
@@ -99,39 +104,39 @@ class solrsearch_SearchBackofficeJSONAction extends f_action_BaseJSONAction
 				{
 					switch ($key)
 					{
-						case "modificationdate":
-						case "creationdate":
+						case "modificationdate" :
+						case "creationdate" :
 							$val = f_util_StringUtils::ucfirst(date_DateFormat::smartFormat(date_Calendar::getInstance(indexer_Field::solrDateToDate($val))));
 							break;
-						case "publicationstatus":
+						case "publicationstatus" :
 							$node['status'] = $val;
 							$val = strtolower($val);
 							break;
-						case "documentpath":
+						case "documentpath" :
 							$val = $this->processDocumentPath($val);
 							break;
-						case "normalizedScore":
+						case "normalizedScore" :
 							$val = round($val * 100, 2);
 							break;
-						case "id":
+						case "id" :
 							$parts = explode('/', $val);
 							$val = $parts[0];
 							break;
-						case "label":
+						case "label" :
 							$putativeKey = str_replace("&amp;", "&", $val);
 							if (f_Locale::isLocaleKey($putativeKey))
 							{
 								$val = f_Locale::translate($putativeKey);
 							}
-						case "htmllink":
+						case "htmllink" :
 							$val = str_replace(array("&gt;", "&#39;"), array(">", "'"), html_entity_decode($val));
-							break;							
-						case "finalId":
-						case "score":
-						case "text":
+							break;
+						case "finalId" :
+						case "score" :
+						case "text" :
 							$key = null;
-							break;	
-						default:
+							break;
+						default :
 							// Nothing
 							break;
 					}

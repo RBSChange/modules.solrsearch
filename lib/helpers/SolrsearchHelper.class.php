@@ -153,7 +153,12 @@ class solrsearch_SolrsearchHelper
 		}
 		
 		$textQuery = indexer_BooleanQuery::orInstance();
-		$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, "text_".$lang));
+		$parsedTextQuery = solrsearch_SolrsearchHelper::parseString($queryString, "text_".$lang);
+		if ($parsedTextQuery->isEmpty())
+		{
+			return $textQuery;
+		}
+		$textQuery->add($parsedTextQuery);
 		$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, "label_".$lang, "AND", 
 		 $labelBoost));
 		$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, $lang."_aggregateText", "AND",
