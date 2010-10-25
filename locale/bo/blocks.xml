@@ -45,4 +45,10 @@
 	<entity id="results.enablesuggestions-help">
 		<locale lang="fr">activer ou non les suggestions de termes approchants.</locale>
 	</entity>
+	<entity id="results.doDocumentModelFacet">
+		<locale lang="fr">afficher la répartition par type</locale>
+	</entity>
+	<entity id="results.doDocumentModelFacet-help">
+		<locale lang="fr">Afficher ou non la répartition des résultats par type de document. Cet affichage n'est disponible que si vous utilisez Solr.</locale>
+	</entity>
 </localization>
