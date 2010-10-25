@@ -40,7 +40,7 @@
 	<tal:block tal:repeat="item searchResults">
 		<li class="${php: repeat.item.odd ? 'odd' : 'even'}">
 			<h3 change:h="">
-				<img tal:attributes="alt item/getGauge/getAltText; src item/getGauge/getImageUrl; class item/getGauge/getClassName" />
+				<img change:gauge="item/getNormalizedScore" />
 				<a class="link" change:link="document item/getDocument"><strong>${item/getHighlightedLabel}</strong></a>				
 			</h3>
 			<tal:block change:include="module item/get__ITEM_MODULE; template item/get__ITEM_TEMPLATE; type 'html'; item item" />

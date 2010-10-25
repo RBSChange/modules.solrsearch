@@ -86,36 +86,6 @@
 		<locale lang="en" />
 		<locale lang="de" />
 	</entity>
-	<entity id="solrsearch-results-0">
-		<locale lang="fr">pertinence 0 sur 5</locale>
-		<locale lang="en">relevancy 0 out of 5</locale>
-		<locale lang="de">Relevanz 0 von 5</locale>
-	</entity>
-	<entity id="solrsearch-results-1">
-		<locale lang="fr">pertinence 1 sur 5</locale>
-		<locale lang="en">relevancy 1 out of 5</locale>
-		<locale lang="de">Relevanz 1 von 5</locale>
-	</entity>
-	<entity id="solrsearch-results-2">
-		<locale lang="fr">pertinence 2 sur 5</locale>
-		<locale lang="en">relevancy 2 out of 5</locale>
-		<locale lang="de">Relevanz 2 von 5</locale>
-	</entity>
-	<entity id="solrsearch-results-3">
-		<locale lang="fr">pertinence 3 sur 5</locale>
-		<locale lang="en">relevancy 3 out of 5</locale>
-		<locale lang="de">Relevanz 3 von 5</locale>
-	</entity>
-	<entity id="solrsearch-results-4">
-		<locale lang="fr">pertinence 4 sur 5</locale>
-		<locale lang="en">relevancy 4 out of 5</locale>
-		<locale lang="de">Relevanz 4 von 5</locale>
-	</entity>
-	<entity id="solrsearch-results-5">
-		<locale lang="fr">pertinence 5 sur 5</locale>
-		<locale lang="en">relevancy 5 out of 5</locale>
-		<locale lang="de">Relevanz 5 von 5</locale>
-	</entity>
 	<entity id="search-input">
 		<locale lang="fr">votre recherche</locale>
 		<locale lang="en">search</locale>

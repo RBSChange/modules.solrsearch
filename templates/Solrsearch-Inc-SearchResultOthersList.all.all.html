@@ -13,7 +13,7 @@
 		<tal tal:define="global documentclass item/getResultType" tal:omit-tag=""/>
 		<li tal:define="global liclass string:$documentclass $posclass" tal:attributes="class liclass">
 			<h3 class="title">
-				<img tal:attributes="alt item/getGauge/getAltText; src item/getGauge/getImageUrl; class item/getGauge/getClassName"/>
+				<img change:gauge="item/getNormalizedScore" />
 				<a class="link" tal:condition="not: item/isMedia" change:link="document item/getDocument">
 					<strong tal:content="item/getHighlightedLabel"></strong>
 				</a>	

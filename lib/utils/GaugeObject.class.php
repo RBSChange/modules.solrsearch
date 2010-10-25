@@ -21,7 +21,10 @@ class GaugeObject extends solrsearch_GaugeObject
 		$this->gauge++;
 	}
 }
-
+/**
+ * 
+ * @deprecated
+ */
 class solrsearch_GaugeObject
 {
 	private $gauge = 0;
