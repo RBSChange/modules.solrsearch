@@ -18,11 +18,4 @@
 			<parameter name="doDocumentModelFacet" type="Boolean" default-value="false" />
 		</parameters>
 	</block>
-	<!-- Deprecated. -->
-	<block type="modules_solrsearch_searchform" display="" icon="form" label="&amp;modules.solrsearch.bo.blocks.Searchform;" hidden="true" />
-	<block type="modules_solrsearch_searchresults" display="" icon="list-block" label="&amp;modules.solrsearch.bo.blocks.Searchresults;" hidden="true">
-		<parameters>
-			<parameter name="displaysuggestions" type="Boolean" default-value="true" />
-		</parameters>
-	</block>
 </blocks>

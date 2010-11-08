@@ -9,7 +9,7 @@ class solrsearch_Setup extends object_InitDataSetup
 			$folderId = ModuleService::getInstance()->getRootFolderId('solrsearch');
 			if (count($this->getPersistentProvider()->createQuery('modules_solrsearch/synonymslist')->find()) > 0)
 			{
-				$this->log("Some synonyms list were found. Aborting automatic import!", Project::MSG_WARN);
+				$this->addWarning("Some synonyms list were found. Aborting automatic import!");
 			}
 			else
 			{

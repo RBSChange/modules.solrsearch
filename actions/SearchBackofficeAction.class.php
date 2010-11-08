@@ -4,7 +4,7 @@
  * @author intstaufl
  * @package modules.uixul
  */
-class solrsearch_SearchBackofficeAction extends solrsearch_Action
+class solrsearch_SearchBackofficeAction extends f_action_BaseAction
 {
 	/**
 	 * @param Context $context

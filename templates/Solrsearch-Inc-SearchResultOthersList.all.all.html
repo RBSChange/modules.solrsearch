@@ -1,27 +1,27 @@
-<h2 class="title"><span change:translate="&modules.solrsearch.frontoffice.Others;" tal:omit-tag=""/> (<span tal:replace="otherResults/getTotalHitsCount"/>)</h2>
+<h2 class="title"><tal:block change:translate="modules.solrsearch.frontoffice.Others" /> (${otherResults/getTotalHitsCount})</h2>
 <ol class="solrsearch-results-list">
-	<tal tal:repeat="item otherResults" tal:omit-tag="">
-		<tal tal:condition="repeat/item/start" tal:omit-tag="">
-			<tal tal:define="global posclass string:first" tal:omit-tag="" />
-		</tal>
-		<tal tal:condition="not: repeat/item/start" tal:omit-tag="">
-			<tal tal:define="global posclass" tal:omit-tag="" />
-		</tal>
-		<tal tal:condition="repeat/item/end" tal:omit-tag="">
-			<tal tal:define="global posclass string: last" tal:omit-tag=""/>
-		</tal>
-		<tal tal:define="global documentclass item/getResultType" tal:omit-tag=""/>
+	<tal:block tal:repeat="item otherResults">
+		<tal:block tal:condition="repeat/item/start">
+			<tal:block tal:define="global posclass string:first" />
+		</tal:block>
+		<tal:block tal:condition="not: repeat/item/start">
+			<tal:block tal:define="global posclass" />
+		</tal:block>
+		<tal:block tal:condition="repeat/item/end">
+			<tal:block tal:define="global posclass string: last" />
+		</tal:block>
+		<tal:block tal:define="global documentclass item/getResultType" />
 		<li tal:define="global liclass string:$documentclass $posclass" tal:attributes="class liclass">
 			<h3 class="title">
 				<img change:gauge="item/getNormalizedScore" />
 				<a class="link" tal:condition="not: item/isMedia" change:link="document item/getDocument">
-					<strong tal:content="item/getHighlightedLabel"></strong>
+					<strong>${item/getHighlightedLabel}</strong>
 				</a>	
 			</h3>		
-			<span tal:condition="item/isMedia" tal:omit-tag="">
+			<tal:block tal:condition="item/isMedia">
 				<strong tal:content="item/getHighlightedLabel"></strong> <a class="link" change:download="item/getDocument"></a>
-			</span>			
-			<div change:include="module 'solrsearch'; template 'Solrsearch-Block-SearchresultDetail'; type 'html'; item item" />
+			</tal:block>			
+			<tal:block change:include="module 'solrsearch'; template 'Solrsearch-Block-SearchresultDetail'; type 'html'; item item" />
 		</li>
-	</tal>
+	</tal:block>
 </ol>
