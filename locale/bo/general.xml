@@ -43,14 +43,6 @@
     <locale lang="fr">Synonymes langue néerlandaise</locale>
     <locale lang="de">Synonyme holländische Sprache</locale>
   </entity>
-  <entity id="importSynonymsListFileInput">
-    <locale lang="fr">pour mettre à jour la liste de synonymes, veuillez choisir le fichier au format texte qui contient les données que vous avez saisies</locale>
-    <locale lang="de">um die Synonymenliste zu aktualisieren, wählen Sie bitte die Textdatei, welche die von Ihnen erfassten Daten beinhaltet</locale>
-  </entity>
-  <entity id="importSynonymsListFileSuccess">
-    <locale lang="fr">la liste de synonymes a été importée avec succès!</locale>
-    <locale lang="de">die Synonymenliste wurde erfolgreich importiert!</locale>
-  </entity>
   <entity id="publicated">
     <locale lang="fr">publié</locale>
     <locale lang="de">veröffentlicht</locale>

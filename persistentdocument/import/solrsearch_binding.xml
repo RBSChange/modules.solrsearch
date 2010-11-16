@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <script>
 	<binding fileName="modules/generic/persistentdocument/import/generic_binding.xml" />
-	<binding name="synonyms" className="solrsearch_SynonymsScriptDocumentElement" />	
-	<binding name="synonymslist" className="solrsearch_SynonymslistScriptDocumentElement" />	
 </script>
