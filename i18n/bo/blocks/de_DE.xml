@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.solrsearch.bo.blocks" lcid="de_DE">
+  <key id="searchform">Suchformular</key>
+  <key id="searchresults">Suchergebnisse</key>
+  <key id="advancedsearch-block-error">Ihr Block für die erweiterte suche ist schlecht konfiguriert!</key>
+  <key id="advancedsearch-emptyquery-error">Ihre Suche beinhaltet keinen gültigen Begriff.</key>
+  <key id="advancedsearch-emptyresults-error">Ihre Suche hat kein Ergebnis ergeben.</key>
+</i18n>

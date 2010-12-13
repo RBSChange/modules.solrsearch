@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.solrsearch.bo.blocks" lcid="en_GB">
+  <key id="searchform">search form</key>
+  <key id="searchresults">search results</key>
+  <key id="advancedsearch-block-error">your advanced search block is misconfigured!</key>
+  <key id="advancedsearch-emptyquery-error">your search contains no valid terms.</key>
+  <key id="advancedsearch-emptyresults-error">your search returned no hits.</key>
+</i18n>

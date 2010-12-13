@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.solrsearch.frontoffice" lcid="fr_FR">
+  <key id="search-button-title">rechercher</key>
+  <key id="search-button-ok">ok</key>
+  <key id="search-results-empty">aucun document ne contient les termes de recherche</key>
+  <key id="search-results-details">voir les détails...</key>
+  <key id="search-results-details-media">afficher le média...</key>
+  <key id="search-results-resultpage">page de résultats</key>
+  <key id="search-results-previous">précédent</key>
+  <key id="search-results-next">suivant</key>
+  <key id="search-error-emptyquery">votre recherche ne contient aucun terme valide.</key>
+  <key id="search-error-wildcardstart">aucun des termes de votre recherche ne peut commencer par un caractère joker (* et ?). Veuillez reformuler votre recherche.</key>
+  <key id="error-during-search">une erreur s'est produite lors de la recherche.</key>
+  <key id="search-results-header">résultat(s) : {start}-{stop} de {total}</key>
+  <key id="search-suggestions">autre suggestion</key>
+  <key id="sort-by">trier par</key>
+  <key id="sort-by-date">date</key>
+  <key id="sort-by-score">pertinence</key>
+  <key id="description">description</key>
+  <key id="end-description"></key>
+  <key id="search-input">votre recherche</key>
+  <key id="search-result-title">résultats de recherche</key>
+  <key id="documentmodelfilter">type de document</key>
+  <key id="removedocumentmodelfilter">enlever</key>
+  <key id="removedocumentmodelfiltertitle">enlever le filtre sur le type de document</key>
+  <key id="documenttypes">types de document</key>
+</i18n>

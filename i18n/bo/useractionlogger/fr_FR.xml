@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.solrsearch.bo.useractionlogger" lcid="fr_FR">
+  <key id="deactivated-synonymslist">deactivated.synonymslist {documentlabel}</key>
+  <key id="log-deactivated-synonymslist">log-deactivated-synonymslist</key>
+  <key id="reactivate-synonymslist">reactivate.synonymslist {documentlabel}</key>
+  <key id="log-reactivate-synonymslist">log-reactivate-synonymslist</key>
+  <key id="deactivated-synonyms">deactivated.synonyms {documentlabel}</key>
+  <key id="log-deactivated-synonyms">log-deactivated-synonyms</key>
+  <key id="reactivate-synonyms">reactivate.synonyms {documentlabel}</key>
+  <key id="log-reactivate-synonyms">log-reactivate-synonyms</key>
+  <key id="update-synonymslist">update.synonymslist {documentlabel}</key>
+  <key id="log-update-synonymslist">log-update-synonymslist</key>
+</i18n>

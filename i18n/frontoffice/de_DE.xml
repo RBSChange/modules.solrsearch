@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.solrsearch.frontoffice" lcid="de_DE">
+  <key id="search-button-title">suchen</key>
+  <key id="search-results-empty">kein Dokument beinhaltet die Suchbegriffe</key>
+  <key id="search-results-details">Details anzeigen...</key>
+  <key id="search-results-details-media">das Medium anzeigen...</key>
+  <key id="search-results-resultpage">Ergebnisseite</key>
+  <key id="search-results-previous">vorheriges</key>
+  <key id="search-results-next">nächstes</key>
+  <key id="search-error-emptyquery">Ihre Suche beinhaltet keinen gültigen Begriff.</key>
+  <key id="search-error-wildcardstart">keiner Ihrer Suchbegriffe darf mit einem Jokerzeichen (* und ?) beginnen. Bitte formulieren Sie Ihre Suche neu.</key>
+  <key id="search-results-header">Ergebnis(se): {start}-{stop} von {total}</key>
+  <key id="search-suggestions">anderer Vorschlag</key>
+  <key id="sort-by">ordnen nach</key>
+  <key id="sort-by-date">Datum</key>
+  <key id="sort-by-score">Relevanz</key>
+  <key id="end-description"></key>
+  <key id="search-input">Ihre Suche</key>
+</i18n>

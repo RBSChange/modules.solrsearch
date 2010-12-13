@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.solrsearch.bo.general" lcid="de_DE">
+  <key id="module-name">Suchmaschine</key>
+  <key id="tree-root-name">Suchmaschine</key>
+  <key id="system-folder-name">Suchmaschine</key>
+  <key id="text_fr">Synonyme französische Sprache</key>
+  <key id="text_en">Synonyme englische Sprache</key>
+  <key id="text_de">Synonyme deutsche Sprache</key>
+  <key id="text_it">Synonyme italienische Sprache</key>
+  <key id="text_es">Synonyme spanische Sprache</key>
+  <key id="text_pt">Synonyme portugiesische Sprache</key>
+  <key id="text_nl">Synonyme holländische Sprache</key>
+  <key id="publicated">veröffentlicht</key>
+  <key id="draft">Entwurf</key>
+  <key id="active">aktiv</key>
+  <key id="deactivated">deaktiviert</key>
+  <key id="filed">archiviert</key>
+  <key id="correction">Korrektur</key>
+</i18n>

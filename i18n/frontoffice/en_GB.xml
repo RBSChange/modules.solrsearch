@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.solrsearch.frontoffice" lcid="en_GB">
+  <key id="search-button-title">search</key>
+  <key id="search-button-ok">ok</key>
+  <key id="search-results-empty">no document matched the search terms</key>
+  <key id="search-results-details">see details...</key>
+  <key id="search-results-details-media">display media...</key>
+  <key id="search-results-resultpage">results page</key>
+  <key id="search-results-previous">previous</key>
+  <key id="search-results-next">next</key>
+  <key id="search-error-emptyquery">your query contains no valid search terms.</key>
+  <key id="search-error-wildcardstart">Query terms are not allowed to start with a wildcard character (* and ?). Please reformulate your query.</key>
+  <key id="search-results-header">result(s) : {start}-{stop} of {total}</key>
+  <key id="search-suggestions">other suggestion</key>
+  <key id="sort-by">sort by</key>
+  <key id="sort-by-date">date</key>
+  <key id="sort-by-score">relevancy</key>
+  <key id="description">description</key>
+  <key id="end-description"></key>
+  <key id="search-input">search</key>
+  <key id="search-result-title">search result</key>
+  <key id="documentmodelfilter">document type</key>
+  <key id="removedocumentmodelfilter">remove</key>
+  <key id="removedocumentmodelfiltertitle">remove document type fitler</key>
+  <key id="documenttypes">document types</key>
+</i18n>
