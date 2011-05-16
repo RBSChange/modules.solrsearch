@@ -28,7 +28,10 @@ class solrsearch_SearchBackofficeJSONAction extends f_action_BaseJSONAction
 			$baseModule = $request->getParameter("baseModule");
 			if (f_util_StringUtils::isNotEmpty($baseModule))
 			{
-				$filter->add(indexer_QueryHelper::stringFieldInstance('module', $baseModule));
+				$moduleFilter = indexer_QueryHelper::orInstance();
+				$moduleFilter->add(indexer_QueryHelper::stringFieldInstance('module', $baseModule));
+				$moduleFilter->add(indexer_QueryHelper::stringFieldInstance('editmodule', $baseModule));
+				$filter->add($moduleFilter);
 			}
 			
 			if ($filter->getSubqueryCount() > 0)
