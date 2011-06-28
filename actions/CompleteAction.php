@@ -40,15 +40,6 @@ class solrsearch_CompleteAction extends f_action_BaseAction
 				{
 					$lastTermQuery->add('*');
 				}
-				// TODO: report BUG
-				// Solr/Lucene has apparently a bug an prefixQuery. Ex : "text:é*" vs "text:e*" while text definition declares:
-				//<fieldType name="text_normal" class="solr.TextField" positionIncrementGap="100">
-				//<analyzer>
-				//  <tokenizer class="solr.StandardTokenizerFactory" />
-				//  <filter class="solr.LowerCaseFilterFactory" />
-				//  <filter class="solr.ASCIIFoldingFilterFactory" />
-				//</analyzer>
-				//</fieldType>
 				$lastTermQuery->setValue(f_util_StringUtils::strip_accents($lastTermQuery->getValue()));
 				$query->add($textQuery);
 			}
@@ -66,12 +57,7 @@ class solrsearch_CompleteAction extends f_action_BaseAction
 		$query->add(new indexer_TermQuery("lang", $lang));
 		
 		// Suggest only on current website terms
-		$websiteQuery = indexer_BooleanQuery::orInstance();
-		$parentWebsiteField = indexer_Field::PARENT_WEBSITE.indexer_Field::INTEGER;
-		$websiteQuery->add(new indexer_TermQuery($parentWebsiteField, 0));
-		$websiteQuery->add(new indexer_TermQuery($parentWebsiteField, $website->getId()));
-		$query->add($websiteQuery);
-		
+		$query->add(indexer_QueryHelper::websiteIdRestrictionInstance($website->getId()));
 		$completeFieldName = ($request->hasNonEmptyParameter("completeFieldName")) ?
 			$request->getParameter("completeFieldName") : $fieldName."_complete";
 		if ($op == "AND")
@@ -131,26 +117,7 @@ class solrsearch_CompleteAction extends f_action_BaseAction
 				echo '"';
 				$i++;
 			}
-			echo "],[";
-			/* This does not seems to be implemented by Firefox...
-			$i = 0;
-			foreach ($results->getFacetResult($fieldName."_suggest") as $facetCount)
-			{
-				if ($i > 0)
-				{
-					echo ",";
-				}
-				echo '"';
-				echo str_replace('"', '\"', $facetCount->getCount()." résultats");
-				echo '"';
-				$i++;
-			}
-			*/
-			echo "],[]]";
-		}
-		else
-		{
-			// TODO: throw ?
+			echo "],[],[]]";
 		}
 	}
 	
