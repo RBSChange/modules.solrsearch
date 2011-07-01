@@ -242,13 +242,6 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 						$searchResult->setProperty('__ITEM_MODULE', $template['module']);
 						$searchResult->setProperty('__ITEM_TEMPLATE', $template['template']);
 					}
-					elseif (f_util_ClassUtils::methodExists($documentService, 'getSolrserachResultItemTemplate'))
-					{
-						// TODO: remove (bad syntax)
-						$template = $documentService->getSolrserachResultItemTemplate($document, get_class());
-						$searchResult->setProperty('__ITEM_MODULE', $template['module']);
-						$searchResult->setProperty('__ITEM_TEMPLATE', $template['template']);
-					}
 					else
 					{
 						$searchResult->setProperty('__ITEM_MODULE', 'solrsearch');
