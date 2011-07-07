@@ -16,6 +16,8 @@
 			</parameter>
 			<parameter name="enableSuggestions" type="Boolean" default-value="true" />
 			<parameter name="doDocumentModelFacet" type="Boolean" default-value="false" />
+			<parameter name="showTypes" type="Boolean" default-value="true" />
+			<parameter name="showDates" type="Boolean" default-value="true" />
 		</parameters>
 	</block>
 </blocks>

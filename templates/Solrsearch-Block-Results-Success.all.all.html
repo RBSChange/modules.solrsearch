@@ -1,53 +1,49 @@
-<h2 change:h="" change:translate="modules.solrsearch.frontoffice.Search-result-title"></h2>
-
-<ul class="solrsearch-results-header" tal:condition="not: noHits">
-	<li class="count"><h4 change:h="" tal:content="resultsHeader | default"></h4></li>
-	<li class="facet" tal:condition="exists: documentModelFacet">
-		<div>
-			<ol class="solrsearch-documentmodel-facet">
-		        <li tal:repeat="facetCount documentModelFacet"><a change:currentPageLink="solrsearchParam[documentModel] repeat/facetCount/key">${facetCount/getValue} (${php: number_format(facetCount.getCount(), 0, ',', ' ')})</a></li>
-	    	</ol>
-	    </div>
-    </li>
-   	<li class="filters" tal:condition="php: isset(documentModel) && documentModel != ''">
-	   	<p class="normal solrsearch-results-filters">
-	    	<span change:translate="modules.solrsearch.frontoffice.DocumentModelFilterLabel"></span>
-	        ${documentModelLabel} <a change:currentPageLink="solrsearchParam[documentModel] ''" change:translate="modules.solrsearch.frontoffice.RemoveDocumentModelFilter" change:i18nattr="title &modules.solrsearch.frontoffice.RemoveDocumentModelFilterTitle;">enlever</a>
-	    </p>
-    </li>
-	<li class="sorting">
-		<tal:block change:translate="modules.solrsearch.frontoffice.Sort-byLabel" />
-		<ol>
+<tal:block tal:condition="not: noHits">
+	<h1 change:h="">${trans:m.solrsearch.frontoffice.result-title,ucf,terms=terms,count=searchResults/getTotalHitsCount}</h1>
+	<p class="normal">
+		${trans:m.solrsearch.frontoffice.sort-by,ucf,lab}
 		<tal:block tal:condition="byScore">
-			<li class="first"><strong change:translate="modules.solrsearch.frontoffice.Sort-by-score"></strong></li>
-			<li class="last"><a class="link" change:currentPageLink="byDateParams" change:translate="modules.solrsearch.frontoffice.Sort-by-date"></a></li>
+			<strong>${trans:m.solrsearch.frontoffice.sort-by-score,ucf}</strong>
+			<span> | </span>
+			<a class="link" change:currentPageLink="byDateParams">${trans:m.solrsearch.frontoffice.sort-by-date,ucf}</a>
 		</tal:block>
 		<tal:block tal:condition="not: byScore">
-			<li class="first"><a class="link" change:currentPageLink="byScoreParams" change:translate="modules.solrsearch.frontoffice.Sort-by-score"></a></li>
-			<li class="last"><strong change:translate="modules.solrsearch.frontoffice.Sort-by-date"></strong></li>
+			<a class="link" change:currentPageLink="byScoreParams">${trans:m.solrsearch.frontoffice.sort-by-score,ucf}</a>
+			<span> | </span>
+			<strong>${trans:m.solrsearch.frontoffice.sort-by-date,ucf}</strong>
 		</tal:block>
-		</ol>
-	</li>
-</ul>
+	</p>
+	<p tal:condition="exists: documentModelFacet" class="normal">
+		<tal:block tal:repeat="facetCount documentModelFacet">
+			<a change:currentPageLink="solrsearchParam[documentModel] repeat/facetCount/key">${facetCount/getValue} (${php: number_format(facetCount.getCount(), 0, ',', ' ')})</a>
+			<span tal:condition="not: repeat/facetCount/end" > | </span>
+		</tal:block>
+	</p>
+	<p tal:condition="php: isset(documentModel) && documentModel != ''" class="normal">
+		${trans:m.solrsearch.frontoffice.documentmodelfilter,ucf,lab}
+		${documentModelLabel} <span class="small">(<a change:currentPageLink="solrsearchParam[documentModel] ''" title="${trans:m.solrsearch.frontoffice.removedocumentmodelfiltertitle,ucf}">${trans:m.solrsearch.frontoffice.removedocumentmodelfilter,ucf}</a>)</span>
+	</p>
+</tal:block>
 
-<p tal:condition="noHits" class="solrsearch-no-hits">
-	<em change:translate="modules.solrsearch.frontoffice.Search-results-emptyLabel"></em>
-	${terms}
+<p tal:condition="noHits" class="normal">
+	${trans:m.solrsearch.frontoffice.search-results-empty,ucf,lab}
+	<em class="highlight">${terms}</em>
 </p>
 
-<p tal:condition="exists: suggestionParams/solrsearchParam" class="solrsearch-suggestions">
-	<tal:block change:translate="modules.solrsearch.frontoffice.Search-suggestions" />
+<p tal:condition="exists: suggestionParams/solrsearchParam" class="normal">
+	${trans:m.solrsearch.frontoffice.search-suggestions,ucf,lab}
 	<a class="link" change:currentPageLink="suggestionParams" tal:content="suggestionParams/solrsearchParam/terms"></a>
 </p>
 
-<ol class="solrsearch-results-list">
+<ol class="document-list">
 	<tal:block tal:repeat="item searchResults">
 		<li class="${php: repeat.item.odd ? 'odd' : 'even'}">
-			<h3 change:h="">
+			<h2 change:h="">
 				<img change:gauge="item/getNormalizedScore" />
-				<a class="link" change:link="document item/getDocument"><strong>${item/getHighlightedLabel}</strong></a>				
-			</h3>
-			<tal:block change:include="module item/get__ITEM_MODULE; template item/get__ITEM_TEMPLATE; type 'html'; item item" />
+				<a change:link="document item/getDocument">${item/getHighlightedLabel}</a>				
+			</h2>
+			<tal:block change:include="module item/get__ITEM_MODULE; template item/get__ITEM_TEMPLATE; type 'html'; item item; showTypes configuration/getShowTypes; showDates configuration/getShowDates" />
+			<div class="cleaner"></div>
 		</li>
 	</tal:block>
 </ol>

@@ -7,4 +7,8 @@
   <key id="enablesuggestions-help">activer ou non les suggestions de termes approchants.</key>
   <key id="dodocumentmodelfacet">afficher la répartition par type</key>
   <key id="dodocumentmodelfacet-help">Afficher ou non la répartition des résultats par type de document. Cet affichage n'est disponible que si vous utilisez Solr.</key>
+  <key id="showtypes">afficher les types</key>
+  <key id="showtypes-help">Afficher ou non le type de chaque document retourné.</key>
+  <key id="showdates">afficher les dates</key>
+  <key id="showdates-help">Afficher ou non la date de création et, si elle est différente, la date de dernière modification.</key>
 </i18n>
