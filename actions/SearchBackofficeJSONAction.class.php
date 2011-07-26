@@ -109,7 +109,7 @@ class solrsearch_SearchBackofficeJSONAction extends f_action_BaseJSONAction
 					{
 						case "modificationdate" :
 						case "creationdate" :
-							$val = f_util_StringUtils::ucfirst(date_DateFormat::smartFormat(date_Converter::convertDateToLocal(date_Calendar::getInstance(indexer_Field::solrDateToDate($val)))));
+							$val = f_util_StringUtils::ucfirst(date_Formatter::toDefaultDateTimeBO(date_Converter::convertDateToLocal(indexer_Field::solrDateToDate($val))));
 							break;
 						case "publicationstatus" :
 							$node['status'] = $val;

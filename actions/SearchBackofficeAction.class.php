@@ -108,7 +108,7 @@ class solrsearch_SearchBackofficeAction extends f_action_BaseAction
 					{
 						case "modificationdate":
 						case "creationdate":
-							$val = f_util_StringUtils::ucfirst(date_DateFormat::smartFormat(date_Calendar::getInstance(indexer_Field::solrDateToDate($val))));
+							$val = f_util_StringUtils::ucfirst(date_Formatter::toDefaultDateTimeBO(date_Converter::convertDateToLocal(indexer_Field::solrDateToDate($val))));
 							break;
 						case "publicationstatus":
 							$val = strtolower($val);
