@@ -1,4 +1,4 @@
-<h2 class="title"><tal:block change:translate="modules.solrsearch.frontoffice.Others" /> (${otherResults/getTotalHitsCount})</h2>
+<h2 class="title"><tal:block tal:content="trans:m.solrsearch.frontoffice.others,ucf" /> (${otherResults/getTotalHitsCount})</h2>
 <ol class="solrsearch-results-list">
 	<tal:block tal:repeat="item otherResults">
 		<tal:block tal:condition="repeat/item/start">

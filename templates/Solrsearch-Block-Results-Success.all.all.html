@@ -40,7 +40,7 @@
 		<li class="${php: repeat.item.odd ? 'odd' : 'even'}">
 			<h2 change:h="">
 				<img change:gauge="item/getNormalizedScore" />
-				<a change:link="document item/getDocument">${item/getHighlightedLabel}</a>				
+				<a change:link="document item/getDocument">${structure item/getHighlightedLabel}</a>				
 			</h2>
 			<tal:block change:include="module item/get__ITEM_MODULE; template item/get__ITEM_TEMPLATE; type 'html'; item item; showTypes configuration/getShowTypes; showDates configuration/getShowDates" />
 			<div class="cleaner"></div>
