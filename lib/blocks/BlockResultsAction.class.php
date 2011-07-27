@@ -213,15 +213,6 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 	}
 	
 	/**
-	 * @deprecated use completeSearchResults
-	 * @param array $searchResults
-	 */
-	protected function comleteSearchResults($searchResults)
-	{
-		return $this->completeSearchResults($searchResults);
-	}
-	
-	/**
 	 * @param array $searchResults
 	 */
 	protected function completeSearchResults($searchResults)

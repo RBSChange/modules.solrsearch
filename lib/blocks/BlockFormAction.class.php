@@ -23,8 +23,8 @@ class solrsearch_BlockFormAction extends website_BlockAction
 		$doCompletion = f_util_Convert::toBoolean(Framework::getConfigurationValue("modules/solrsearch/form-completion", $cfg->getComplete()));
 		if ($doCompletion)
 		{
-			$this->getPage()->addScript("modules.solrsearch.lib.js.jquery-autocomplete");
-			$this->getPage()->addStyle("modules.solrsearch.autocomplete");
+			$this->getContext()->addScript("modules.solrsearch.lib.js.jquery-autocomplete");
+			$this->getContext()->addStyle("modules.solrsearch.autocomplete");
 		}
 		$request->setAttribute("doCompletion", $doCompletion);
 		
