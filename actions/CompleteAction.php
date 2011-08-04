@@ -2,11 +2,11 @@
 /**
  * This action does only work if SolR is a real SolR (ie. not mysqlindexer)
  */
-class solrsearch_CompleteAction extends f_action_BaseAction
+class solrsearch_CompleteAction extends change_Action
 {
 	/**
-	 * @param Context $context
-	 * @param Request $request
+	 * @param change_Context $context
+	 * @param change_Request $request
 	 */
 	public function _execute($context, $request)
 	{
@@ -122,8 +122,8 @@ class solrsearch_CompleteAction extends f_action_BaseAction
 	}
 	
 	/**
-	 * @param Context $context
-	 * @param Request $request
+	 * @param change_Context $context
+	 * @param change_Request $request
 	 * @param indexer_BooleanQuery $query
 	 */
 	protected function completeQuery($context, $request, $query)

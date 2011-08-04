@@ -3,11 +3,11 @@
  * solrsearch_GetOpenSearchSuccessView
  * @package modules.solrsearch.views
  */
-class solrsearch_GetOpenSearchSuccessView extends f_view_BaseView
+class solrsearch_GetOpenSearchSuccessView extends change_View
 {
 	/**
-	 * @param Context $context
-	 * @param Request $request
+	 * @param change_Context $context
+	 * @param change_Request $request
 	 */
 	public function _execute($context, $request)
 	{

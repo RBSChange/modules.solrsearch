@@ -1,10 +1,10 @@
-<p class="normal">${item/getHighlightedText}<span>${trans:m.solrsearch.frontoffice.end-description,ucf,etc}</span></p>
+<p class="normal">${structure item/getHighlightedText}<span>${trans:m.solrsearch.frontoffice.end-description,ucf,etc}</span></p>
 <dl class="inline-list" tal:define="doc item/getDocument" tal:condition="php: showTypes OR showDates">
 	<tal:block tal:condition="showTypes">
 		<dt>${trans:m.solrsearch.frontoffice.type,ucf}</dt> 
 		<dd>
 			<tal:block tal:condition="item/hasTypeLabel">${item/getTypeLabel}</tal:block>
-			<tal:block tal:condition="not:item/hasTypeLabel">${php: LocaleService::getInstance().transFO(item.getDocument().getDocumentModel().getLabelKey(), array('ucf'))}</tal:block>
+			<tal:block tal:condition="not:item/hasTypeLabel">${php: LocaleService::getInstance().transFO(item.getDocument().getPersistentModel().getLabelKey(), array('ucf'))}</tal:block>
 			<span tal:condition="showDates"> - </span>
 		</dd>
 	</tal:block>

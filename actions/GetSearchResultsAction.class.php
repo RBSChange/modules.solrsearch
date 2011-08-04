@@ -3,11 +3,11 @@
  * solrsearch_GetSearchResultsAction
  * @package modules.solrsearch.actions
  */
-class solrsearch_GetSearchResultsAction extends f_action_BaseAction
+class solrsearch_GetSearchResultsAction extends change_Action
 {
 	/**
-	 * @param Context $context
-	 * @param Request $request
+	 * @param change_Context $context
+	 * @param change_Request $request
 	 */
 	public function _execute($context, $request)
 	{
@@ -15,8 +15,8 @@ class solrsearch_GetSearchResultsAction extends f_action_BaseAction
 		$website = DocumentHelper::getDocumentInstance($websiteInfo['id']);
 		$tag = $request->getParameter('resultTag');
 
-		$module = AG_ERROR_404_MODULE;
-		$action = AG_ERROR_404_ACTION;
+		$module = 'website';
+		$action = 'Error404';
 		if ($tag !== null)
 		{
 			$page = TagService::getInstance()->getDocumentByContextualTag($tag, $website);
@@ -29,7 +29,7 @@ class solrsearch_GetSearchResultsAction extends f_action_BaseAction
 		}
 
 		$context->getController()->forward($module, $action);
-		return View::NONE;
+		return change_View::NONE;
 	}
 
 	/**
