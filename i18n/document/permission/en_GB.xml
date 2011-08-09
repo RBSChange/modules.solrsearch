@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<i18n baseKey="m.solrsearch.document.permission" lcid="en_GB">
-  <key id="edition-form-title">right management</key>
-  <key id="admin">Administrator</key>
-  <key id="admin-help">Administrator</key>
-</i18n>
