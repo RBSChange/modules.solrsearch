@@ -11,7 +11,7 @@ class solrsearch_GetOpenSearchSuccessView extends change_View
 	 */
 	public function _execute($context, $request)
 	{
-		$this->setTemplateName('Solrsearch-Action-GetOpenSearch-Success', K::XML);
+		$this->setTemplateName('Solrsearch-Action-GetOpenSearch-Success', 'xml');
 		
 		$website = website_WebsiteModuleService::getInstance()->getCurrentWebsite();
 		$this->setAttribute('website', $website);

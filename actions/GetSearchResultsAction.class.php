@@ -22,7 +22,7 @@ class solrsearch_GetSearchResultsAction extends change_Action
 			$page = TagService::getInstance()->getDocumentByContextualTag($tag, $website);
 			if ($page !== null)
 			{
-				$request->setParameter(K::PAGE_REF_ACCESSOR, $page->getId());
+				$request->setParameter('pageref', $page->getId());
 				$module = 'website';
 				$action = 'Display';
 			}
