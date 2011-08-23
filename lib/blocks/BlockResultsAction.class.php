@@ -54,7 +54,7 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 			return website_BlockView::ERROR;
 		}
 		
-		if ($cfg->getDoDocumentModelFacet() && indexer_SolrManager::hasFacetAbility())
+		if ($cfg->getDoDocumentModelFacet())
 		{
 			$request->setAttribute("hasFacet", true);
 			$modelFacet = $searchResults->getFacetResult("documentModel");
@@ -78,24 +78,11 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 		// Suggestions.
 		if ($doSuggestion)
 		{
-			if (!indexer_SolrManager::hasSuggestionInOnRequest())
+			$suggestion = $searchResults->getSuggestion();
+			if (f_util_StringUtils::isNotEmpty($suggestion))
 			{
-				// This is the old way: multiple SolR requests (at least 2)
-				$suggestions = solrsearch_SolrsearchHelper::getSuggestionsForTerms($suggestionTerms, $this->getLang());
-				if (count($suggestions) > 0)
-				{
-					$params = array('solrsearchParam' => array('terms' => htmlspecialchars(join(' ', $suggestions))));
-					$request->setAttribute('suggestionParams', $params);
-				}
-			}
-			else
-			{
-				$suggestion = $searchResults->getSuggestion();
-				if (f_util_StringUtils::isNotEmpty($suggestion))
-				{
-					$params = array('solrsearchParam' => array('terms' => htmlspecialchars($suggestion)));
-					$request->setAttribute('suggestionParams', $params);
-				}
+				$params = array('solrsearchParam' => array('terms' => htmlspecialchars($suggestion)));
+				$request->setAttribute('suggestionParams', $params);
 			}
 		}
 		
@@ -153,7 +140,7 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 		 $cfg->getConfigurationParameter("labelBoost", solrsearch_SolrsearchHelper::DEFAULT_LABEL_BOOST),
 		 $cfg->getConfigurationParameter("localizedAggregateBoost", solrsearch_SolrsearchHelper::DEFAULT_LOCALIZED_AGGREGRATE_BOOST),
 		 $cfg->getConfigurationParameter("exactBoost", solrsearch_SolrsearchHelper::DEFAULT_EXACT_BOOST));
-		if ($cfg->getDoDocumentModelFacet() && indexer_SolrManager::hasFacetAbility())
+		if ($cfg->getDoDocumentModelFacet())
 		{
 			$masterQuery->addFacet("documentModel");
 		}

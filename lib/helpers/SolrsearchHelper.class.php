@@ -63,33 +63,8 @@ class solrsearch_SolrsearchHelper
 		{
 			return array();
 		}
-		$schemaVersion = indexer_SolrManager::getSchemaVersion();
-		if ($schemaVersion == "2.0.4")
-		{
-			$res = array();
-			foreach ($terms as $term)
-			{
-				$suggestion = indexer_IndexService::getInstance()->getSuggestionForWord(mb_strtolower($term), $lang);
-				if (!is_null($suggestion))
-				{
-					$res[] = $suggestion;
-				}
-				else
-				{
-					$res[] = $term;
-				}
-			}
-			if (count(array_diff($terms, $res)) == 0)
-			{
-				return array();
-			}
-			return $res;
-		}
-		else
-		{
-			$res = indexer_IndexService::getInstance()->getSuggestionForWords($terms, $lang);
-			return explode(" ", $res);
-		}
+		$res = indexer_IndexService::getInstance()->getSuggestionForWords($terms, $lang);
+		return explode(" ", $res);
 	}
 	
 	/**
@@ -101,28 +76,6 @@ class solrsearch_SolrsearchHelper
 	public static function mediaFilterInstance($type)
 	{
 		return indexer_QueryHelper::stringFieldInstance('mediaType', $type);
-	}
-	
-	/**
-	 * Given the array of terms $terms do a standard text search. 
-	 *
-	 * @param Array $terms
-	 * @deprecated use standardTextQueryForQueryString
-	 * @return indexer_Query
-	 */
-	public static function standardTextQueryForTerms($terms)
-	{
-		$masterQuery = indexer_QueryHelper::andInstance();
-		foreach ($terms as $word)
-		{
-			$aggregateQuery = new indexer_TermQuery(RequestContext::getInstance()->getLang() . '_aggregateText', strtolower($word));
-			$bool = indexer_QueryHelper::orInstance();
-			$bool->add($aggregateQuery->setBoost(self::DEFAULT_LOCALIZED_AGGREGRATE_BOOST));
-			$bool->add(indexer_QueryHelper::localizedFieldInstance('label', $word)->setBoost(self::DEFAULT_LABEL_BOOST));
-			$bool->add(indexer_QueryHelper::localizedFieldInstance('text', $word));
-			$masterQuery->add($bool);
-		}
-		return $masterQuery;
 	}
 	
 	/**
@@ -159,15 +112,9 @@ class solrsearch_SolrsearchHelper
 			return $textQuery;
 		}
 		$textQuery->add($parsedTextQuery);
-		$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, "label_".$lang, "AND", 
-		 $labelBoost));
-		$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, $lang."_aggregateText", "AND",
-		 $localizedAggregateBoost));
-		if (indexer_SolrManager::hasAggregateText())
-		{
-			$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, "aggregateText", "AND",
-			 $exactBoost));
-		}
+		$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, "label_".$lang, "AND", $labelBoost));
+		$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, $lang."_aggregateText", "AND", $localizedAggregateBoost));
+		$textQuery->add(solrsearch_SolrsearchHelper::parseString($queryString, "aggregateText", "AND", $exactBoost));
 		return $textQuery;
 	}
 	
