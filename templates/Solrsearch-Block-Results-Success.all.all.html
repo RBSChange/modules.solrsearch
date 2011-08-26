@@ -1,5 +1,5 @@
 <tal:block tal:condition="not: noHits">
-	<h1 change:h="">${trans:m.solrsearch.frontoffice.result-title,ucf,terms=terms,count=searchResults/getTotalHitsCount}</h1>
+	<h1 change:h="">${structure trans:m.solrsearch.frontoffice.result-title,ucf,terms=terms,count=searchResults/getTotalHitsCount}</h1>
 	<p class="normal">
 		${trans:m.solrsearch.frontoffice.sort-by,ucf,lab}
 		<tal:block tal:condition="byScore">
