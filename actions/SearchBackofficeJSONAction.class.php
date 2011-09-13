@@ -154,7 +154,7 @@ class solrsearch_SearchBackofficeJSONAction extends change_JSONAction
 				{
 					$doc = DocumentHelper::getDocumentInstance($node['id']);
 					$attrs = array();
-					$doc->buildTreeAttributes($baseModule, 'wlist', $attrs);
+					$doc->getDocumentService()->addTreeAttributes($doc, $baseModule, 'wlist', $attrs);
 					if (isset($attrs['hasPreviewImage']))
 					{
 						$node['hasPreviewImage'] = $attrs['hasPreviewImage'];
