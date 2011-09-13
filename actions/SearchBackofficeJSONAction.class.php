@@ -98,6 +98,7 @@ class solrsearch_SearchBackofficeJSONAction extends f_action_BaseJSONAction
 			$result["offset"] = $searchResults->getFirstHitOffset();
 			$result["nodes"] = array();
 			
+			$baseModule = $this->getContext()->getRequest()->getParameter("baseModule");
 			foreach ($searchResults as $searchResult)
 			{
 				$node = array();
@@ -148,7 +149,18 @@ class solrsearch_SearchBackofficeJSONAction extends f_action_BaseJSONAction
 						$node[$key] = $val;
 					}
 				}
-				$result["nodes"][] = $node;
+				
+				if (isset($node['id']) && f_persistentdocument_PersistentProvider::getInstance()->getDocumentModelName($node['id']))
+				{
+					$doc = DocumentHelper::getDocumentInstance($node['id']);
+					$attrs = array();
+					$doc->buildTreeAttributes($baseModule, 'wlist', $attrs);
+					if (isset($attrs['hasPreviewImage']))
+					{
+						$node['hasPreviewImage'] = $attrs['hasPreviewImage'];
+					}				
+					$result["nodes"][] = $node;
+				}
 			}
 		}
 		$this->sendJSON($result);
