@@ -13,7 +13,7 @@ class solrsearch_GetOpenSearchSuccessView extends change_View
 	{
 		$this->setTemplateName('Solrsearch-Action-GetOpenSearch-Success', 'xml');
 		
-		$website = website_WebsiteModuleService::getInstance()->getCurrentWebsite();
+		$website = website_WebsiteService::getInstance()->getCurrentWebsite();
 		$this->setAttribute('website', $website);
 		$this->setAttribute('submitUrl', $request->getAttribute('submitUrl'));
 		$this->setAttribute('selfUrl', LinkHelper::getCurrentUrl());

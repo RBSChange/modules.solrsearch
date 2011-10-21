@@ -17,7 +17,7 @@ class solrsearch_CompleteAction extends change_Action
 		}
 		$fieldName = $request->getParameter("fieldName", "aggregateText");
 		$lang = $request->getParameter("lang");
-		$website = website_WebsiteModuleService::getInstance()->getCurrentWebsite();
+		$website = website_WebsiteService::getInstance()->getCurrentWebsite();
 		$out = $request->getParameter("out", "jquery-autocomplete");
 		if (!in_array($fieldName, $allowedFields) || $lang === null || $out === null)
 		{

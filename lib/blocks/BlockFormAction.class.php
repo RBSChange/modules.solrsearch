@@ -33,7 +33,7 @@ class solrsearch_BlockFormAction extends website_BlockAction
 		$request->setAttribute('terms', htmlspecialchars($request->getParameter('terms')));
 		
 		// Open search.
-		$website = website_WebsiteModuleService::getInstance()->getCurrentWebsite();
+		$website = website_WebsiteService::getInstance()->getCurrentWebsite();
 		$parameters = array('resultTag' => $this->getResultPageTag());
 		$openSearchUrl = LinkHelper::getActionUrl('solrsearch', 'GetOpenSearch', $parameters);
 		$this->getContext()->addLink('search', 'application/opensearchdescription+xml', $openSearchUrl, $website->getLabelAsHtml());
@@ -57,7 +57,7 @@ class solrsearch_BlockFormAction extends website_BlockAction
 	{
 		try
 		{
-			$currentWebsite = website_WebsiteModuleService::getInstance()->getCurrentWebsite();
+			$currentWebsite = website_WebsiteService::getInstance()->getCurrentWebsite();
 			return TagService::getInstance()->getDocumentByContextualTag($this->getResultPageTag(), $currentWebsite);
 		}
 		catch (TagException $e)

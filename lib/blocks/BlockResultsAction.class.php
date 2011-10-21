@@ -156,7 +156,7 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 		$masterQuery->add($textQuery);
 		$masterQuery->setLang($this->getLang());
 		
-		$website = website_WebsiteModuleService::getInstance()->getCurrentWebsite();
+		$website = website_WebsiteService::getInstance()->getCurrentWebsite();
 		$filter = indexer_QueryHelper::andInstance();
 		$filter->add(indexer_QueryHelper::websiteIdRestrictionInstance($website->getId()));
 		$masterQuery->setFilterQuery($filter);

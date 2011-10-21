@@ -11,7 +11,7 @@ class solrsearch_GetSearchResultsAction extends change_Action
 	 */
 	public function _execute($context, $request)
 	{
-		$websiteInfo  = website_WebsiteModuleService::getInstance()->getWebsiteInfos($_SERVER['HTTP_HOST']);
+		$websiteInfo  = website_WebsiteService::getInstance()->getWebsiteInfos($_SERVER['HTTP_HOST']);
 		$website = DocumentHelper::getDocumentInstance($websiteInfo['id']);
 		$tag = $request->getParameter('resultTag');
 
