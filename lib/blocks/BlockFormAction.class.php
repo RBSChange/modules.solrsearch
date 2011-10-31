@@ -6,6 +6,19 @@
 class solrsearch_BlockFormAction extends website_BlockAction
 {
 	/**
+	 * @return array
+	 */
+	public function getRequestModuleNames()
+	{
+		$modules = parent::getRequestModuleNames();
+		if (!in_array($this->getConfiguration()->getModule(), $modules))
+		{
+			$modules[] = $this->getConfiguration()->getModule();
+		}
+		return $modules;
+	}
+	
+	/**
 	 * @see website_BlockAction::execute()
 	 * @param f_mvc_Request $request
 	 * @param f_mvc_Response $response
