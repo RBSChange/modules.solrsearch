@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <i18n baseKey="m.solrsearch.bo.blocks.results" lcid="en_GB">
   <key id="title">search results</key>
+  <key id="dodocumentmodelfacet">show distribution by type</key>
+  <key id="dodocumentmodelfacet-help">Show or hide the distribution of results by document type. This display is available only if you use Solr.</key>
+  <key id="enablesuggestions">activate suggestions</key>
+  <key id="enablesuggestions-help">Activates or deactivates suggestions for approximate terms.</key>
+  <key id="nbitemsperpage">number of results per page</key>
+  <key id="nbitemsperpage-help">This is the number of results to display on each page.</key>
+  <key id="showdates">show dates</key>
+  <key id="showdates-help">Shows or hides the date of creation and, if different, the date of last modification.</key>
+  <key id="showtypes">show types</key>
+  <key id="showtypes-help">Shows or hides the type of each document returned.</key>
 </i18n>
