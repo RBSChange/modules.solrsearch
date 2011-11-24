@@ -3,4 +3,17 @@
   <key id="module-name">search engine</key>
   <key id="tree-root-name">search engine</key>
   <key id="system-folder-name">search engine</key>
+  <key id="active">active</key>
+  <key id="correction">correction</key>
+  <key id="deactivated">disabled</key>
+  <key id="draft">draft</key>
+  <key id="filed">filed</key>
+  <key id="publicated">published</key>
+  <key id="text_de">German synonyms</key>
+  <key id="text_en">English synonyms</key>
+  <key id="text_es">Spanish synonyms</key>
+  <key id="text_fr">French synonyms</key>
+  <key id="text_it">Italian synonyms</key>
+  <key id="text_nl">Dutch synonyms</key>
+  <key id="text_pt">Portuguese synonyms</key>
 </i18n>
