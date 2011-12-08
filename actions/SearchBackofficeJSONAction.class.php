@@ -40,7 +40,7 @@ class solrsearch_SearchBackofficeJSONAction extends change_JSONAction
 			}
 			$query->setSortOnField($this->getSortOnField($request), $this->sortDescending($request));
 			$query->setReturnedHitsCount($request->getParameter("limit", 100));
-			$this->resultsToJSON(indexer_IndexService::getInstance()->searchBackoffice($query));
+			$this->resultsToJSON(indexer_IndexService::getInstance()->searchBackoffice($query), intval($request->getParameter('treetype')));
 		}
 		else
 		{
@@ -80,8 +80,9 @@ class solrsearch_SearchBackofficeJSONAction extends change_JSONAction
 	
 	/**
 	 * @param indexer_SearchResults $searchResults
+	 * @param integer $treetype
 	 */
-	private function resultsToJSON($searchResults)
+	private function resultsToJSON($searchResults, $treetype)
 	{
 		$result = array();
 		
@@ -99,67 +100,50 @@ class solrsearch_SearchBackofficeJSONAction extends change_JSONAction
 			$result["nodes"] = array();
 			
 			$baseModule = $this->getContext()->getRequest()->getParameter("baseModule");
+			$pp = $this->getPersistentProvider();
+			$toIndex = array();
 			foreach ($searchResults as $searchResult)
 			{
-				$node = array();
-				
 				$fields = $searchResult->getFields();
-				foreach ($fields as $key => $val)
+				list($id,) = explode('/', $fields['id']);
+				$modelName = $pp->getDocumentModelName($id);
+				if (!$modelName)
 				{
-					switch ($key)
-					{
-						case "modificationdate" :
-						case "creationdate" :
-							$val = f_util_StringUtils::ucfirst(date_Formatter::toDefaultDateTimeBO(date_Converter::convertDateToLocal(indexer_Field::solrDateToDate($val))));
-							break;
-						case "publicationstatus" :
-							$node['status'] = $val;
-							$val = strtolower($val);
-							break;
-						case "documentpath" :
-							$val = $this->processDocumentPath($val);
-							break;
-						case "normalizedScore" :
-							$val = round($val * 100, 2);
-							break;
-						case "id" :
-							$parts = explode('/', $val);
-							$val = $parts[0];
-							break;
-						case "label" :
-							$putativeKey = str_replace("&amp;", "&", $val);
-							if (f_Locale::isLocaleKey($putativeKey))
-							{
-								$val = f_Locale::translate($putativeKey);
-							}
-						case "htmllink" :
-							$val = str_replace(array("&gt;", "&#39;"), array(">", "'"), html_entity_decode($val));
-							break;
-						case "finalId" :
-						case "score" :
-						case "text" :
-							$key = null;
-							break;
-						default :
-							// Nothing
-							break;
-					}
-					if ($key !== null)
-					{
-						$node[$key] = $val;
-					}
+					$toIndex[] = $id;
+					continue;
 				}
 				
-				if (isset($node['id']) && f_persistentdocument_PersistentProvider::getInstance()->getDocumentModelName($node['id']))
+				$doc = $pp->getDocumentInstance($id, $modelName);
+				$node = array(
+					'id' => $id,
+					'status' => $doc->getPublicationstatus(),
+					'normalizedScore' => round($fields['normalizedScore'] * 100, 2),
+					'documentModel' => $modelName,
+					'documentpath' => $this->processDocumentPath($fields['documentpath']),
+					'creationdate' => date_Formatter::toDefaultDateTimeBO($doc->getUICreationdate()),
+					'modificationdate' => date_Formatter::toDefaultDateTimeBO($doc->getUIModificationdate()),
+					'editmodule' => isset($fields['editmodule']) ? $fields['editmodule'] : $fields['module']
+				);
+				
+				DocumentHelper::completeBOAttributes($doc, $node, $treetype);
+				$result["nodes"][] = $node;
+			}
+			
+			if (count($toIndex) > 0)
+			{
+				$tm = $this->getTransactionManager();
+				try 
 				{
-					$doc = DocumentHelper::getDocumentInstance($node['id']);
-					$attrs = array();
-					$doc->getDocumentService()->addTreeAttributes($doc, $baseModule, 'wlist', $attrs);
-					if (isset($attrs['hasPreviewImage']))
+					$tm->beginTransaction();					
+					foreach ($toIndex as $id)
 					{
-						$node['hasPreviewImage'] = $attrs['hasPreviewImage'];
-					}				
-					$result["nodes"][] = $node;
+						$pp->setIndexingDocumentStatus($id, self::TO_INDEX);
+					}
+					$tm->commit();
+				}
+				catch (Exception $e)
+				{
+					$tm->rollback($e);
 				}
 			}
 		}
