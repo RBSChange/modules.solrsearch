@@ -42,15 +42,11 @@ class solrsearch_GaugeObject
 	{
 		if (self::$imageBaseName == null)
 		{
-			try
+			$delegateClassName = Framework::getConfigurationValue('modules/solrsearch/gaugeDelegate');
+			if ($delegateClassName && f_util_ClassUtils::classExists($delegateClassName))
 			{
-				$delegateClassName = Framework::getConfiguration('modules/solrsearch/gaugeDelegate');
 				self::setDelegate($delegateClassName);
 			} 
-			catch (ConfigurationException $e)
-			{
-				// Nothing to do here
-			}
 			
 			if (self::$imageBaseName == null)
 			{
