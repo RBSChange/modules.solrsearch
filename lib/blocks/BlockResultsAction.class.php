@@ -20,6 +20,7 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 			return website_BlockView::NONE;
 		}
 		
+		$ls = LocaleService::getInstance();
 		$queryString = trim($request->getParameter('terms'));
 		// If a term starts with a wildcard * or ?, bail...
 		if (preg_match('/(^| )[?*]/', $queryString) != 0)
@@ -50,13 +51,13 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 		// Error during search...
 		if ($searchResults === null)
 		{
-			$this->addError(f_Locale::translate("&modules.solrsearch.frontoffice.Error-during-search;"));
+			$this->addError($ls->transFO('m.solrsearch.frontoffice.error-during-search', array('ucf')));
 			return website_BlockView::ERROR;
 		}
 		
 		if ($cfg->getDoDocumentModelFacet() && indexer_SolrManager::hasFacetAbility())
 		{
-			$request->setAttribute("hasFacet", true);
+			$request->setAttribute('hasFacet', true);
 			$modelFacet = $searchResults->getFacetResult("documentModel");
 			if ($modelFacet->count() > 1)
 			{
@@ -64,9 +65,9 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 				{
 					$modelName = $facetCount->getValue();
 					$modelInfo = f_persistentdocument_PersistentDocumentModel::getModelInfo($modelName);
-					$facetCount->setValue(f_Locale::translate("&modules.".$modelInfo["module"].".document.".$modelInfo["document"].".Document-name;"));
+					$facetCount->setValue($ls->transFO('m.'.$modelInfo['module'].'.document.'.$modelInfo['document'].'.document-name', array('ucf')));
 				}
-				$request->setAttribute("documentModelFacet", $modelFacet);
+				$request->setAttribute('documentModelFacet', $modelFacet);
 			}
 		}
 		
@@ -80,7 +81,7 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 		{
 			if (!indexer_SolrManager::hasSuggestionInOnRequest())
 			{
-				// This is the old way: multiple SolR requests (at least 2)
+				// This is the old way: multiple SolR requests (at least 2).
 				$suggestions = solrsearch_SolrsearchHelper::getSuggestionsForTerms($suggestionTerms, $this->getLang());
 				if (count($suggestions) > 0)
 				{
@@ -112,7 +113,7 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 		$request->setAttribute('byScore', $sort == 'score');
 		
 		$currentOffset = $searchResults->getFirstHitOffset() + 1;
-		$header = f_Locale::translate('&modules.solrsearch.frontoffice.Search-results-header;', array('start' => $currentOffset, 'stop' => $currentOffset + $pageHitsCount - 1, 'total' => $totalHitsCount));
+		$header = $ls->transFO('m.solrsearch.frontoffice.search-results-header', array('ucf'), array('start' => $currentOffset, 'stop' => $currentOffset + $pageHitsCount - 1, 'total' => $totalHitsCount));
 		$request->setAttribute('resultsHeader', $header);
 		
 		return website_BlockView::SUCCESS;
@@ -123,7 +124,7 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 	 */
 	protected function handleBadQuery()
 	{
-		$this->addError(f_Locale::translate("&modules.solrsearch.frontoffice.Search-error-wildcardstart;"));
+		$this->addError(LocaleService::getInstance()->transFO('m.solrsearch.frontoffice.search-error-wildcardstart', array('ucf')));
 		return website_BlockView::ERROR;
 	}
 	
@@ -132,7 +133,7 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 	 */
 	protected function handleEmptyQuery()
 	{
-		$this->addError(f_Locale::translate("&modules.solrsearch.frontoffice.Search-error-emptyquery;"));
+		$this->addError(LocaleService::getInstance()->transFO('m.solrsearch.frontoffice.search-error-emptyquery', array('ucf')));
 		return website_BlockView::ERROR;
 	}
 	
@@ -150,9 +151,10 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 		
 		$masterQuery = indexer_BooleanQuery::andInstance();
 		$textQuery = solrsearch_SolrsearchHelper::standardTextQueryForQueryString($queryString, $this->getLang(),
-		 $cfg->getConfigurationParameter("labelBoost", solrsearch_SolrsearchHelper::DEFAULT_LABEL_BOOST),
-		 $cfg->getConfigurationParameter("localizedAggregateBoost", solrsearch_SolrsearchHelper::DEFAULT_LOCALIZED_AGGREGRATE_BOOST),
-		 $cfg->getConfigurationParameter("exactBoost", solrsearch_SolrsearchHelper::DEFAULT_EXACT_BOOST));
+			$cfg->getConfigurationParameter("labelBoost", solrsearch_SolrsearchHelper::DEFAULT_LABEL_BOOST),
+			$cfg->getConfigurationParameter("localizedAggregateBoost", solrsearch_SolrsearchHelper::DEFAULT_LOCALIZED_AGGREGRATE_BOOST),
+			$cfg->getConfigurationParameter("exactBoost", solrsearch_SolrsearchHelper::DEFAULT_EXACT_BOOST)
+		);
 		if ($cfg->getDoDocumentModelFacet() && indexer_SolrManager::hasFacetAbility())
 		{
 			$masterQuery->addFacet("documentModel");
