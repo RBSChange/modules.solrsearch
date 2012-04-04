@@ -8,16 +8,17 @@
 			<staticitem label="&amp;modules.solrsearch.frontoffice.Sort-by-score;" value="date" />
 			<staticitem label="&amp;modules.solrsearch.frontoffice.Sort-by-date;" value="score" />
 		</staticlist>
+		<staticlist listid="modules_solrsearch/formmethods" label="Méthodes de soumission" description="Liste des méthodes de soumission du formulaire de recherche.">
+			<staticitem label="GET" value="GET" />
+			<staticitem label="POST" value="POST" />
+		</staticlist>
+		<!-- @deprecated -->
 		<staticlist listid="modules_solrsearch/itemperpage" label="Éléments par page" description="Liste des nombres d'éléments par page.">
 			<staticitem label="5" value="5" />
 			<staticitem label="10" value="10" />
 			<staticitem label="15" value="15" />
 			<staticitem label="20" value="20" />
 			<staticitem label="25" value="25" />
-		</staticlist>
-		<staticlist listid="modules_solrsearch/formmethods" label="Méthodes de soumission" description="Liste des méthodes de soumission du formulaire de recherche.">
-			<staticitem label="GET" value="GET" />
-			<staticitem label="POST" value="POST" />
 		</staticlist>
 	</systemfolder>
 </script>
