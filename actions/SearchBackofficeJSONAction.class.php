@@ -7,12 +7,12 @@ class solrsearch_SearchBackofficeJSONAction extends change_JSONAction
 	 */
 	public function _execute($context, $request)
 	{
-		$textQuery = solrsearch_SolrsearchHelper::standardTextQueryForQueryString(f_util_StringUtils::strip_accents($request->getParameter("terms")));
+		$textQuery = solrsearch_SolrsearchHelper::standardTextQueryForQueryString(f_util_StringUtils::stripAccents($request->getParameter("terms")));
 		if (!$textQuery->isEmpty())
 		{
 			$query = indexer_QueryHelper::orInstance();
 			$query->add($textQuery);
-			$query->add(solrsearch_SolrsearchHelper::standardTextQueryForQueryString(f_util_StringUtils::strip_accents($request->getParameter("terms"))."*"));
+			$query->add(solrsearch_SolrsearchHelper::standardTextQueryForQueryString(f_util_StringUtils::stripAccents($request->getParameter("terms"))."*"));
 			$firstTerm = f_util_ArrayUtils::firstElement(explode(" ", $request->getParameter("terms")));
 			if (is_numeric($firstTerm))
 			{

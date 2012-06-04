@@ -40,7 +40,7 @@ class solrsearch_CompleteAction extends change_Action
 				{
 					$lastTermQuery->add('*');
 				}
-				$lastTermQuery->setValue(f_util_StringUtils::strip_accents($lastTermQuery->getValue()));
+				$lastTermQuery->setValue(f_util_StringUtils::stripAccents($lastTermQuery->getValue()));
 				$query->add($textQuery);
 			}
 			else
