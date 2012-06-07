@@ -8,8 +8,7 @@ class solrsearch_SolrsearchHelper
 	const INVALID_QUERY_TERMS_REGEXP = '/([,;:\"\'&\.\^+\-(){}#~!?§=\/%]|\bAND\b|\bOR\b|\bNOT\b)+/u';
 	
 	const SORT_OPTIONS_LIST_ID = 'modules_solrsearch/sortoptions';
-	const ITEM_PER_PAGE_LIST_ID = 'modules_solrsearch/itemperpage';
-	
+
 	/**
 	 * Transforms a string in an array of individual terms:
 	 * 

@@ -9,7 +9,7 @@ class solrsearch_BlockFormAction extends website_BlockAction
 	 * @see website_BlockAction::execute()
 	 * @param f_mvc_Request $request
 	 * @param f_mvc_Response $response
-	 * @return String
+	 * @return string
 	 */
 	public function execute($request, $response)
 	{
@@ -20,16 +20,7 @@ class solrsearch_BlockFormAction extends website_BlockAction
 		}
 		
 		$cfg = $this->getConfiguration();
-		$doCompletion = f_util_Convert::toBoolean(Framework::getConfigurationValue("modules/solrsearch/form-completion", $cfg->getComplete()));
-		if ($doCompletion)
-		{
-			$this->getContext()->addScript("modules.solrsearch.lib.js.jquery-autocomplete");
-			$this->getContext()->addStyle("modules.solrsearch.autocomplete");
-		}
-		$request->setAttribute("doCompletion", $doCompletion);
-		
-		$resultUrl = LinkHelper::getDocumentUrl($resultPage);
-		$request->setAttribute('formAction', htmlentities($resultUrl));
+		$request->setAttribute('formAction', htmlentities(LinkHelper::getDocumentUrl($resultPage)));
 		$request->setAttribute('terms', htmlspecialchars($request->getParameter('terms')));
 		
 		// Open search.
@@ -46,8 +37,7 @@ class solrsearch_BlockFormAction extends website_BlockAction
 	 */
 	protected function getResultPageTag()
 	{
-		return $this->getConfiguration()->getConfigurationParameter('resultTag',
-		 'contextual_website_website_modules_solrsearch_page-results');
+		return $this->getConfiguration()->getConfigurationParameter('resultTag', 'contextual_website_website_modules_solrsearch_page-results');
 	}
 	
 	/**
@@ -55,15 +45,7 @@ class solrsearch_BlockFormAction extends website_BlockAction
 	 */
 	protected final function getResultPage()
 	{
-		try
-		{
-			$currentWebsite = website_WebsiteService::getInstance()->getCurrentWebsite();
-			return TagService::getInstance()->getDocumentByContextualTag($this->getResultPageTag(), $currentWebsite);
-		}
-		catch (TagException $e)
-		{
-			Framework::exception($e);
-		}
-		return null;
+		$currentWebsite = website_WebsiteModuleService::getInstance()->getCurrentWebsite();
+		return TagService::getInstance()->getDocumentByContextualTag($this->getResultPageTag(), $currentWebsite, false);
 	}
 }

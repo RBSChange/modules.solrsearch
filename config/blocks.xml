@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <blocks>
-  <block type="modules_solrsearch_form" icon="form">
-    <parameters>
-      <parameter name="resultTag" type="String" hidden="true" default-value="contextual_website_website_modules_solrsearch_page-results"/>
-      <parameter name="submitMethod" type="String" default-value="get" from-list="modules_solrsearch/formmethods"/>
-      <parameter name="complete" type="Boolean" default-value="false"/>
-    </parameters>
-  </block>
-  <block type="modules_solrsearch_results" icon="list-block">
-    <parameters>
-      <parameter name="nbItemsPerPage" type="Integer" default-value="10">
-        <constraint name="min" min="5"/>
-        <constraint name="max" max="100"/>
-      </parameter>
-      <parameter name="enableSuggestions" type="Boolean" default-value="true"/>
-      <parameter name="doDocumentModelFacet" type="Boolean" default-value="false"/>
-      <parameter name="showTypes" type="Boolean" default-value="true"/>
-      <parameter name="showDates" type="Boolean" default-value="true"/>
-    </parameters>
-  </block>
+	<block type="modules_solrsearch_form" icon="form">
+		<parameters>
+			<parameter name="submitMethod" type="String" default-value="get" from-list="modules_solrsearch/formmethods" />
+			<parameter name="complete" type="Boolean" default-value="false" />
+			<parameter name="module" default-value="solrsearch" type="String" hidden="true" />
+			<parameter name="resultTag" type="String" hidden="true" default-value="contextual_website_website_modules_solrsearch_page-results" />
+		</parameters>
+	</block>
+	<block type="modules_solrsearch_results" icon="list-block">
+		<parameters>
+			<parameter name="nbItemsPerPage" type="Integer" default-value="10">
+				<constraint name="min" min="5" />
+				<constraint name="max" max="100" />
+			</parameter>
+			<parameter name="enableSuggestions" type="Boolean" default-value="true" />
+			<parameter name="doDocumentModelFacet" type="Boolean" default-value="false" />
+			<parameter name="showTypes" type="Boolean" default-value="true" />
+			<parameter name="showDates" type="Boolean" default-value="true" />
+		</parameters>
+	</block>
 </blocks>

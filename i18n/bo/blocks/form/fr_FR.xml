@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <i18n baseKey="m.solrsearch.bo.blocks.form" lcid="fr_FR">
-  <key id="title">formulaire de recherche</key>
+	<key id="title">formulaire de recherche</key>
+	<key id="submitmethod">méthode de soumission</key>
+	<key id="complete">auto-complétion</key>
 </i18n>
