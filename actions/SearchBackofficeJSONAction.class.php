@@ -7,12 +7,12 @@ class solrsearch_SearchBackofficeJSONAction extends f_action_BaseJSONAction
 	 */
 	public function _execute($context, $request)
 	{
-		$textQuery = solrsearch_SolrsearchHelper::standardTextQueryForQueryString(f_util_StringUtils::strip_accents($request->getParameter("terms")));
+		$textQuery = solrsearch_SolrsearchHelper::standardTextQueryForQueryString($request->getParameter("terms"));
 		if (!$textQuery->isEmpty())
 		{
 			$query = indexer_QueryHelper::orInstance();
 			$query->add($textQuery);
-			$query->add(solrsearch_SolrsearchHelper::standardTextQueryForQueryString(f_util_StringUtils::strip_accents($request->getParameter("terms"))."*"));
+			$query->add(solrsearch_SolrsearchHelper::standardTextQueryForQueryString($request->getParameter("terms")."*"));
 			$firstTerm = f_util_ArrayUtils::firstElement(explode(" ", $request->getParameter("terms")));
 			if (is_numeric($firstTerm))
 			{
@@ -40,6 +40,7 @@ class solrsearch_SearchBackofficeJSONAction extends f_action_BaseJSONAction
 			}
 			$query->setSortOnField($this->getSortOnField($request), $this->sortDescending($request));
 			$query->setReturnedHitsCount($request->getParameter("limit", 100));
+			
 			$this->resultsToJSON(indexer_IndexService::getInstance()->searchBackoffice($query));
 		}
 		else
@@ -176,7 +177,7 @@ class solrsearch_SearchBackofficeJSONAction extends f_action_BaseJSONAction
 		{
 			return "";
 		}
-		$val = str_replace(array("&gt;", "&#39;"), array(">", "'"), $val);
+		$val = str_replace(array("&gt;", "&#39;", "&amp;"), array(">", "'", "&"), $val);
 		$result = array();
 		foreach (explode(" > ", $val) as $pathComponent)
 		{

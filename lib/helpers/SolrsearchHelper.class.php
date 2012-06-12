@@ -245,18 +245,11 @@ class solrsearch_SolrsearchHelper
 				{
 					$term = new indexer_TermQuery($fieldName);
 				}
-				$term->add($c);
+				$term->add($c === '&' ? '&amp;' : $c);
 			}
 		}
-
 		$wasAdded = self::addTerm($query, $term);
-		/*
-		 if ($wasAdded && $quoted)
-		 {
-			echo "Warning: malformed expression syntax";
-			}
-			*/
-
+		
 		if ($defaultBoost !== null)
 		{
 			foreach ($query->getSubqueries() as $termQuery)
