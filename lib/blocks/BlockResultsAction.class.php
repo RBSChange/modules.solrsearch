@@ -11,7 +11,7 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 	 * @see website_BlockAction::execute()
 	 * @param f_mvc_Request $request
 	 * @param f_mvc_Response $response
-	 * @return String
+	 * @return string
 	 */
 	public function execute($request, $response)
 	{
@@ -107,7 +107,7 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 	}
 	
 	/**
-	 * @return String
+	 * @return string
 	 */
 	protected function handleBadQuery()
 	{
@@ -116,7 +116,7 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 	}
 	
 	/**
-	 * @return String
+	 * @return string
 	 */
 	protected function handleEmptyQuery()
 	{

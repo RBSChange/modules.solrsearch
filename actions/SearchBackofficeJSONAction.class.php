@@ -151,8 +151,8 @@ class solrsearch_SearchBackofficeJSONAction extends change_JSONAction
 	}
 	
 	/**
-	 * @param String $val
-	 * @return String
+	 * @param string $val
+	 * @return string
 	 */
 	private function processDocumentPath($val)
 	{

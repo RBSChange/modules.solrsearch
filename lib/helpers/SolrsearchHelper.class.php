@@ -12,7 +12,7 @@ class solrsearch_SolrsearchHelper
 	/**
 	 * Transforms a string in an array of individual terms:
 	 * 
-	 * @param String $string
+	 * @param string $string
 	 * @return Array<String>
 	 */
 	public static function getValidTermsFromString($string)
@@ -22,8 +22,8 @@ class solrsearch_SolrsearchHelper
 	}
 	
 	/**
-	 * @param String $value
-	 * @return String
+	 * @param string $value
+	 * @return string
 	 */
 	public static function escapeString($value)
 	{
@@ -33,7 +33,7 @@ class solrsearch_SolrsearchHelper
 	}
 	
 	/**
-	 * @param String $value
+	 * @param string $value
 	 * @return Array<String>
 	 */
 	public static function getTermsFromString($string)
@@ -53,7 +53,7 @@ class solrsearch_SolrsearchHelper
 	 * Get an array of suggestions for the array $terms in the lang $lang
 	 *
 	 * @param Array $terms
-	 * @param String $lang
+	 * @param string $lang
 	 * @return Array
 	 */
 	public static function getSuggestionsForTerms($terms, $lang)
@@ -69,7 +69,7 @@ class solrsearch_SolrsearchHelper
 	/**
 	 * Return a filter on a specific document type. 
 	 *
-	 * @param String $type
+	 * @param string $type
 	 * @return indexer_Query
 	 */
 	public static function mediaFilterInstance($type)
@@ -78,11 +78,11 @@ class solrsearch_SolrsearchHelper
 	}
 	
 	/**
-	 * @param String $queryString
-	 * @param String $lang default current lang
-	 * @param Integer $labelBoost default DEFAULT_LABEL_BOOST
-	 * @param Integer $localizedAggregateBoost default DEFAULT_LOCALIZED_AGGREGRATE_BOOST
-	 * @param Integer $exactBoost default DEFAULT_EXACT_BOOST
+	 * @param string $queryString
+	 * @param string $lang default current lang
+	 * @param integer $labelBoost default DEFAULT_LABEL_BOOST
+	 * @param integer $localizedAggregateBoost default DEFAULT_LOCALIZED_AGGREGRATE_BOOST
+	 * @param integer $exactBoost default DEFAULT_EXACT_BOOST
 	 * @return indexer_BooleanQuery
 	 */
 	public static function standardTextQueryForQueryString($queryString, $lang = null, $labelBoost = null, $localizedAggregateBoost = null, $exactBoost = null)
@@ -118,9 +118,9 @@ class solrsearch_SolrsearchHelper
 	}
 	
 	/**
-	 * @param String $string
-	 * @param String $fieldName
-	 * @param String $op "AND" or "OR"
+	 * @param string $string
+	 * @param string $fieldName
+	 * @param string $op "AND" or "OR"
 	 * @return indexer_BooleanQuery
 	 */
 	public static function parseString($string, $fieldName, $op = "AND", $defaultBoost = null)
@@ -222,8 +222,8 @@ class solrsearch_SolrsearchHelper
 
 	/**
 	 * @param indexer_BooleanQuery $query
-	 * @param String $term
-	 * @return Boolean true if term was added
+	 * @param string $term
+	 * @return boolean true if term was added
 	 */
 
 	private static function addTerm($query, &$term, $string = null, $stringLen = null, &$i = null)
@@ -281,9 +281,9 @@ class solrsearch_SolrsearchHelper
 	}
 
 	/**
-	 * @param String $string
-	 * @param Integer $queryLen
-	 * @param Integer $i
+	 * @param string $string
+	 * @param integer $queryLen
+	 * @param integer $i
 	 * @return indexer_TermQuery
 	 */
 	private static function beginTerm($fieldName, $string, $stringLen, &$i)

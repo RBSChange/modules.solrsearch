@@ -1,4 +1,0 @@
-<?xml version="1.0"?>
-<tags extends="generic">
-	<tag labeli18n="m.solrsearch.bo.tag.solrsearch-result-page" icon="list-block">contextual_website_website_modules_solrsearch_page-results</tag>
-</tags>
