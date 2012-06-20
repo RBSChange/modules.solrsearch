@@ -45,7 +45,7 @@ class solrsearch_BlockFormAction extends website_BlockAction
 	 */
 	protected final function getResultPage()
 	{
-		$currentWebsite = website_WebsiteModuleService::getInstance()->getCurrentWebsite();
+		$currentWebsite = website_WebsiteService::getInstance()->getCurrentWebsite();
 		return TagService::getInstance()->getDocumentByContextualTag($this->getResultPageTag(), $currentWebsite, false);
 	}
 }
