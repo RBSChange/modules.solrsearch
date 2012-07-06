@@ -162,17 +162,10 @@ class solrsearch_SearchBackofficeJSONAction extends change_JSONAction
 		}
 		$val = str_replace(array("&gt;", "&#39;"), array(">", "'"), $val);
 		$result = array();
+		$ls = LocaleService::getInstance();
 		foreach (explode(" > ", $val) as $pathComponent)
 		{
-			$putativeKey = str_replace("&amp;", "&", $pathComponent);
-			if (f_Locale::isLocaleKey($putativeKey))
-			{
-				$result[] = f_Locale::translate($putativeKey);
-			}
-			else
-			{
-				$result[] = $pathComponent;
-			}
+			$result[] = $ls->trans($pathComponent);
 		}
 		return implode(" > ", $result);
 	}

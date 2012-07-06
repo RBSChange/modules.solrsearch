@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <script>
-  <binding fileName="modules/useractionlogger/persistentdocument/import/useractionlogger_binding.xml"/>
-  <actiondef modulename="solrsearch" actionname="deactivated.synonymslist" label="modules.solrsearch.bo.useractionlogger.deactivated-synonymslist"/>
-  <actiondef modulename="solrsearch" actionname="reactivate.synonymslist" label="modules.solrsearch.bo.useractionlogger.reactivate-synonymslist"/>
-  <actiondef modulename="solrsearch" actionname="deactivated.synonyms" label="modules.solrsearch.bo.useractionlogger.deactivated-synonyms"/>
-  <actiondef modulename="solrsearch" actionname="reactivate.synonyms" label="modules.solrsearch.bo.useractionlogger.reactivate-synonyms"/>
-  <actiondef modulename="solrsearch" actionname="update.synonymslist" label="modules.solrsearch.bo.useractionlogger.update-synonymslist"/>
+	<binding fileName="modules/useractionlogger/persistentdocument/import/useractionlogger_binding.xml" />
+	<actiondef modulename="solrsearch" actionname="deactivated.synonymslist" label="modules.solrsearch.bo.useractionlogger.deactivated-synonymslist" />
+	<actiondef modulename="solrsearch" actionname="reactivate.synonymslist" label="modules.solrsearch.bo.useractionlogger.reactivate-synonymslist" />
+	<actiondef modulename="solrsearch" actionname="deactivated.synonyms" label="modules.solrsearch.bo.useractionlogger.deactivated-synonyms" />
+	<actiondef modulename="solrsearch" actionname="reactivate.synonyms" label="modules.solrsearch.bo.useractionlogger.reactivate-synonyms" />
+	<actiondef modulename="solrsearch" actionname="update.synonymslist" label="modules.solrsearch.bo.useractionlogger.update-synonymslist" />
 </script>

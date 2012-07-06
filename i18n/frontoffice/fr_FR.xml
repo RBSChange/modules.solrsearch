@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.solrsearch.frontoffice" lcid="fr_FR">
 	<key id="search-button-title">rechercher</key>
 	<key id="search-button-ok">ok</key>
@@ -17,7 +17,7 @@
 	<key id="sort-by-date">date</key>
 	<key id="sort-by-score">pertinence</key>
 	<key id="description">description</key>
-	<key id="end-description"></key>
+	<key id="end-description" />
 	<key id="search-input">votre recherche</key>
 	<key id="search-result-title">résultats de recherche</key>
 	<key id="result-title" format="html"><![CDATA[Votre recherche sur <em class="highlight">{terms}</em> a mené à {count} résultats]]></key>

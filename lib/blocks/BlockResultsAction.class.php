@@ -152,7 +152,7 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 			$modelName = $request->getParameter("documentModel");
 			$masterQuery->add(new indexer_TermQuery("documentModel", $modelName));
 			$modelInfo = f_persistentdocument_PersistentDocumentModel::getModelInfo($modelName);
-			$request->setAttribute("documentModelLabel", f_Locale::translate("&modules.".$modelInfo["module"].".document.".$modelInfo["document"].".Document-name;"));
+			$request->setAttribute("documentModelLabel", LocaleService::getInstance()->trans("m.".$modelInfo["module"].".document.".$modelInfo["document"].".document-name", array('ucf')));
 		}
 		
 		$masterQuery->add($textQuery);

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.solrsearch.bo.blocks.searchresults" lcid="en_GB">
-  <key id="displaysuggestions">Show suggestions</key>
-  <key id="displaysuggestions-help">Allows to show or hide potential search suggestions.</key>
+	<key id="displaysuggestions">Show suggestions</key>
+	<key id="displaysuggestions-help">Allows to show or hide potential search suggestions.</key>
 </i18n>

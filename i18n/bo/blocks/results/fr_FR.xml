@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.solrsearch.bo.blocks.results" lcid="fr_FR">
-  <key id="title">résultats de recherche</key>
-  <key id="nbitemsperpage">nombre de résultats par page</key>
-  <key id="nbitemsperpage-help">nombre de résultats à afficher par page.</key>
-  <key id="enablesuggestions">activer les suggestions</key>
-  <key id="enablesuggestions-help">activer ou non les suggestions de termes approchants.</key>
-  <key id="dodocumentmodelfacet">afficher la répartition par type</key>
-  <key id="dodocumentmodelfacet-help">Afficher ou non la répartition des résultats par type de document. Cet affichage n'est disponible que si vous utilisez Solr.</key>
-  <key id="showtypes">afficher les types</key>
-  <key id="showtypes-help">Afficher ou non le type de chaque document retourné.</key>
-  <key id="showdates">afficher les dates</key>
-  <key id="showdates-help">Afficher ou non la date de création et, si elle est différente, la date de dernière modification.</key>
+	<key id="title">résultats de recherche</key>
+	<key id="nbitemsperpage">nombre de résultats par page</key>
+	<key id="nbitemsperpage-help">nombre de résultats à afficher par page.</key>
+	<key id="enablesuggestions">activer les suggestions</key>
+	<key id="enablesuggestions-help">activer ou non les suggestions de termes approchants.</key>
+	<key id="dodocumentmodelfacet">afficher la répartition par type</key>
+	<key id="dodocumentmodelfacet-help">Afficher ou non la répartition des résultats par type de document. Cet affichage n'est disponible que si vous utilisez Solr.</key>
+	<key id="showtypes">afficher les types</key>
+	<key id="showtypes-help">Afficher ou non le type de chaque document retourné.</key>
+	<key id="showdates">afficher les dates</key>
+	<key id="showdates-help">Afficher ou non la date de création et, si elle est différente, la date de dernière modification.</key>
 </i18n>

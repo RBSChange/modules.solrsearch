@@ -1,31 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.solrsearch.frontoffice" lcid="en_GB">
-  <key id="search-button-title">search</key>
-  <key id="search-button-ok">ok</key>
-  <key id="search-results-empty">no documents matched the search terms</key>
-  <key id="search-results-details">see details…</key>
-  <key id="search-results-details-media">display media…</key>
-  <key id="search-results-resultpage">results page</key>
-  <key id="search-results-previous">previous</key>
-  <key id="search-results-next">next</key>
-  <key id="search-error-emptyquery">your search does not contain any valid terms.</key>
-  <key id="search-error-wildcardstart">Query terms are not allowed to begin with a wildcard character (* and ?). Please rephrase your query.</key>
-  <key id="search-results-header">result(s): {start}-{stop} of {total}</key>
-  <key id="search-suggestions">other suggestion</key>
-  <key id="sort-by">sort by</key>
-  <key id="sort-by-date">date</key>
-  <key id="sort-by-score">relevance</key>
-  <key id="description">description</key>
-  <key id="end-description"/>
-  <key id="search-input">your search</key>
-  <key id="search-result-title">search results</key>
-  <key id="documentmodelfilter">document type</key>
-  <key id="removedocumentmodelfilter">remove</key>
-  <key id="removedocumentmodelfiltertitle">remove filter on document type</key>
-  <key id="documenttypes">document types</key>
-  <key id="creationdate">creation</key>
-  <key id="error-during-search">an error occurred during the search.</key>
-  <key id="modificationdate">last modification</key>
-  <key id="result-title" format="html"><![CDATA[Your search for <em class="highlight">{terms}</em> lead to {count} results]]></key>
-  <key id="type">type</key>
+	<key id="search-button-title">search</key>
+	<key id="search-button-ok">ok</key>
+	<key id="search-results-empty">no documents matched the search terms</key>
+	<key id="search-results-details">see details…</key>
+	<key id="search-results-details-media">display media…</key>
+	<key id="search-results-resultpage">results page</key>
+	<key id="search-results-previous">previous</key>
+	<key id="search-results-next">next</key>
+	<key id="search-error-emptyquery">your search does not contain any valid terms.</key>
+	<key id="search-error-wildcardstart">Query terms are not allowed to begin with a wildcard character (* and ?). Please rephrase your query.</key>
+	<key id="search-results-header">result(s): {start}-{stop} of {total}</key>
+	<key id="search-suggestions">other suggestion</key>
+	<key id="sort-by">sort by</key>
+	<key id="sort-by-date">date</key>
+	<key id="sort-by-score">relevance</key>
+	<key id="description">description</key>
+	<key id="end-description" />
+	<key id="search-input">your search</key>
+	<key id="search-result-title">search results</key>
+	<key id="documentmodelfilter">document type</key>
+	<key id="removedocumentmodelfilter">remove</key>
+	<key id="removedocumentmodelfiltertitle">remove filter on document type</key>
+	<key id="documenttypes">document types</key>
+	<key id="creationdate">creation</key>
+	<key id="error-during-search">an error occurred during the search.</key>
+	<key id="modificationdate">last modification</key>
+	<key id="result-title" format="html"><![CDATA[Your search for <em class="highlight">{terms}</em> lead to {count} results]]></key>
+	<key id="type">type</key>
 </i18n>

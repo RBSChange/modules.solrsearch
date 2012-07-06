@@ -2,11 +2,10 @@
 <script>
 	<binding fileName="modules/list/persistentdocument/import/list_binding.xml" />
 	<binding fileName="modules/generic/persistentdocument/import/generic_binding.xml" />
-
 	<systemfolder module="list" relatedmodule="solrsearch">
 		<staticlist listid="modules_solrsearch/sortoptions" label="Méthodes de tri" description="Liste des méthodes de tri des résultats.">
-			<staticitem label="&amp;modules.solrsearch.frontoffice.Sort-by-score;" value="date" />
-			<staticitem label="&amp;modules.solrsearch.frontoffice.Sort-by-date;" value="score" />
+			<staticitem label="m.solrsearch.frontoffice.sort-by-score" value="date" />
+			<staticitem label="m.solrsearch.frontoffice.sort-by-date" value="score" />
 		</staticlist>
 		<staticlist listid="modules_solrsearch/formmethods" label="Méthodes de soumission" description="Liste des méthodes de soumission du formulaire de recherche.">
 			<staticitem label="GET" value="GET" />
