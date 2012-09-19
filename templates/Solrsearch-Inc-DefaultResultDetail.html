@@ -4,7 +4,7 @@
 		<dt>${trans:m.solrsearch.frontoffice.type,ucf}</dt> 
 		<dd>
 			<tal:block tal:condition="item/hasTypeLabel">${item/getTypeLabel}</tal:block>
-			<tal:block tal:condition="not:item/hasTypeLabel">${php: LocaleService::getInstance().transFO(item.getDocument().getPersistentModel().getLabelKey(), array('ucf'))}</tal:block>
+			<tal:block tal:condition="not:item/hasTypeLabel">${item/getDocument/getPersistentModel/getLabel}</tal:block>
 			<span tal:condition="showDates" class="separator"> - </span>
 		</dd>
 	</tal:block>
