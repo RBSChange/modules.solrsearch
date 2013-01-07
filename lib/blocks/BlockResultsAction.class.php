@@ -21,7 +21,8 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 		}
 		
 		$ls = LocaleService::getInstance();
-		$queryString = trim($request->getParameter('terms'));
+		$terms = trim($request->getParameter('terms'));
+		$queryString = f_util_StringUtils::toLower($terms);
 		// If a term starts with a wildcard * or ?, bail...
 		if (preg_match('/(^| )[?*]/', $queryString) != 0)
 		{
@@ -34,7 +35,7 @@ class solrsearch_BlockResultsAction extends website_BlockAction
 			return $this->handleEmptyQuery();
 		}
 		
-		$request->setAttribute('terms', htmlspecialchars($queryString));
+		$request->setAttribute('terms', htmlspecialchars($terms));
 		
 		$currentPage = $this->getCurrentPageNumber();
 		$itemsPerPage = $this->getNbItemsPerPage();
