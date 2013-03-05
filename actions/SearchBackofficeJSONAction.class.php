@@ -10,16 +10,18 @@ class solrsearch_SearchBackofficeJSONAction extends f_action_BaseJSONAction
 		$textQuery = solrsearch_SolrsearchHelper::standardTextQueryForQueryString($request->getParameter("terms"));
 		if (!$textQuery->isEmpty())
 		{
+			$lang = RequestContext::getInstance()->getLang();
 			$query = indexer_QueryHelper::orInstance();
 			$query->add($textQuery);
 			$query->add(solrsearch_SolrsearchHelper::standardTextQueryForQueryString($request->getParameter("terms")."*"));
 			$firstTerm = f_util_ArrayUtils::firstElement(explode(" ", $request->getParameter("terms")));
 			if (is_numeric($firstTerm))
 			{
-				$query->add(new indexer_TermQuery('id', $firstTerm . "/" . RequestContext::getInstance()->getLang()));
+				$query->add(new indexer_TermQuery('id', $firstTerm . "/" . $lang));
 			}
 			
 			$filter = indexer_QueryHelper::andInstance();
+			$filter->add(indexer_QueryHelper::langRestrictionInstance($lang));
 			if ($request->hasParameter("parentId"))
 			{
 				$filter->add(indexer_QueryHelper::descendantOfInstance($request->getParameter("parentId")));
